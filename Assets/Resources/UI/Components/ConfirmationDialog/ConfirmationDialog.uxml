@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<engine:UXML
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:engine="UnityEngine.UIElements"
+        xmlns:editor="UnityEditor.UIElements" xmlns:ui="UnityEngine.UIElements"
+        xsi:noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd"
+        xsi:schemaLocation="UnityEngine.UIElements file:/Users/knux/Documents/Programming/self/geemu/unity/UITest/UIElementsSchema/UnityEngine.UIElements.xsd"
+>
+    <ui:Style src="ConfirmationDialog.uss" />
+    <ui:VisualElement class="modal-overlay">
+        <ui:VisualElement class="confirmation-dialog">
+            <ui:Label class="confirmation-dialog-title" name="confirmation-dialog-title" text="Important" />
+            <ui:Label class="confirmation-dialog-message" name="confirmation-dialog-message" text="Are you sure you want to quit?" />
+            <ui:VisualElement class="confirmation-buttons">
+                <ui:Button class="confirmation-button" name="reject-button" text="No" />
+                <ui:Button class="confirmation-button" name="accept-button" text="Yes" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</engine:UXML>

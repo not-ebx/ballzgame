@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<engine:UXML
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:engine="UnityEngine.UIElements"
+    xmlns:editor="UnityEditor.UIElements"
+    xsi:noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd"
+>
+    <engine:Style src="VisualDialog.uss" />
+    <engine:VisualElement class="visual-dialog-screen">
+        <engine:VisualElement class="visual-dialog-portrait-left">
+            <engine:Image name="portrait-left" />
+        </engine:VisualElement>
+        <engine:VisualElement class="visual-dialog-portrait-right">
+            <engine:Image name="portrait-right" />
+        </engine:VisualElement>
+        <engine:VisualElement class="visual-dialog-box-author">
+            <engine:Label name="author-name" class="visual-dialog-box-text" text="Author" />
+        </engine:VisualElement>
+        <engine:VisualElement class="visual-dialog-box">
+            <engine:Label name="dialog-text" class="visual-dialog-box-text" text="This is the dialog haha :)\nWhats up" />
+        </engine:VisualElement>
+    </engine:VisualElement>
+</engine:UXML>

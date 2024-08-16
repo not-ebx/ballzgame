@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Resources/UI/Screens/TitleScreen/TitleScreen.uss?fileID=7433441132597879392&amp;guid=449e18133b774c85981dd34dc597a9c2&amp;type=3#TitleScreen" />
+    <ui:VisualElement class="title-screen">
+        <ui:Label text="Video Game" class="title"/>
+        <ui:Button name="new-game" text="New Game" class="title-screen-button"/>
+        <ui:Button name="continue" text="Continue" class="title-screen-button" />
+        <ui:Button name="quit" text="Quit" class="title-screen-button" />
+    </ui:VisualElement>
+</ui:UXML>

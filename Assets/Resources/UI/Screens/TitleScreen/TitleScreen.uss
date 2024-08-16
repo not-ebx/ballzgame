@@ -1,0 +1,31 @@
+.title {
+    font-size: 64px;
+    -unity-font-style: bold;
+    align-self: center;
+    margin-top: 50px;
+    margin-bottom: 100px;
+}
+
+.title-screen {
+    display: flex;
+}
+
+.title-screen-button {
+    flex: 1;
+    font-size: 20px;
+    margin: 5px 5px;
+    background-color: rgba(0, 0, 0, 0);
+    border-color: rgba(0, 0, 0, 0);
+    -unity-font: resource('Fonts/HomeVideo-Regular');
+    -unity-font-definition: initial;
+    -unity-font-style: bold;
+    -unity-text-align: upper-center;
+}
+
+.title-screen-button:hover {
+    color: yellow;
+}
+
+.title-screen-button:active {
+    color: red;
+}
