@@ -1039,7 +1039,7 @@ Transform:
   m_GameObject: {fileID: 770275862}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.45, y: -0.4167, z: 0}
+  m_LocalPosition: {x: -4.36, y: -2.12, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1102,25 +1102,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4be7a44d1abf4b67a277c70d181b155f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
-  jumpForce: 4
-  gravityForce: -4
   groundLayer:
     serializedVersion: 2
     m_Bits: 1
-  sprite: {fileID: 0}
-  rb: {fileID: 770275863}
-  coll: {fileID: 770275866}
-  anim: {fileID: 0}
+  moveSpeed: 8
   remainingJumps: 1
   maxJumpHeight: 4
   minJumpHeight: 1
-  timeToMaxJump: 0.7
+  timeToMaxJump: 0.5
   jumpVelocity: 0
   gravityScale: 0
   movementInput: {x: 0, y: 0}
   attackCharge: 0
-  isAttacking: 0
 --- !u!95 &770275868
 Animator:
   serializedVersion: 5
@@ -1406,12 +1399,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 142247413736031974, guid: 5b846ff1aab5d4dbc9a98466884e5ba4, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.17622
+      objectReference: {fileID: 0}
+    - target: {fileID: 142247413736031974, guid: 5b846ff1aab5d4dbc9a98466884e5ba4, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.17622
+      objectReference: {fileID: 0}
+    - target: {fileID: 142247413736031974, guid: 5b846ff1aab5d4dbc9a98466884e5ba4, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.4895
+      objectReference: {fileID: 0}
+    - target: {fileID: 142247413736031974, guid: 5b846ff1aab5d4dbc9a98466884e5ba4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.10160261
+      value: -0.4979
       objectReference: {fileID: 0}
     - target: {fileID: 142247413736031974, guid: 5b846ff1aab5d4dbc9a98466884e5ba4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.0060031
+      value: 2.2565
       objectReference: {fileID: 0}
     - target: {fileID: 142247413736031974, guid: 5b846ff1aab5d4dbc9a98466884e5ba4, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1448,6 +1453,14 @@ PrefabInstance:
     - target: {fileID: 1482381183504727214, guid: 5b846ff1aab5d4dbc9a98466884e5ba4, type: 3}
       propertyPath: m_Name
       value: Ball
+      objectReference: {fileID: 0}
+    - target: {fileID: 1482381183504727214, guid: 5b846ff1aab5d4dbc9a98466884e5ba4, type: 3}
+      propertyPath: m_TagString
+      value: Ball
+      objectReference: {fileID: 0}
+    - target: {fileID: 2027204417558062521, guid: 5b846ff1aab5d4dbc9a98466884e5ba4, type: 3}
+      propertyPath: m_GravityScale
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

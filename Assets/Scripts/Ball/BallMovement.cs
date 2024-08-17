@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class BallPhysics : MonoBehaviour
 {
@@ -34,7 +36,8 @@ public class BallPhysics : MonoBehaviour
             direction = -rb.velocity.normalized;
         }
         
-        rb.velocity *= (direction * (1 + damage));
+        rb.velocity = (direction * (1 + damage));
+        Debug.Log("Hit the ball with Direction " + direction + " and Damage " + damage + ". Total Velocity is " + rb.velocity);
         boostAudioSource.Play();
     }
 
