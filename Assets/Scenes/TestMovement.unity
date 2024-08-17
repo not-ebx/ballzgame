@@ -164,7 +164,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 31938467}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 33d042ac015e1453281e66e2ab17cd6e, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -294,7 +294,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 43685321}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 33d042ac015e1453281e66e2ab17cd6e, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -424,7 +424,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 111063834}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 33d042ac015e1453281e66e2ab17cd6e, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -710,7 +710,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 606659892}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 33d042ac015e1453281e66e2ab17cd6e, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -943,9 +943,10 @@ GameObject:
   - component: {fileID: 770275863}
   - component: {fileID: 770275866}
   - component: {fileID: 770275867}
-  m_Layer: 0
+  - component: {fileID: 770275868}
+  m_Layer: 7
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Play
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1018,8 +1019,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.9056604, g: 0.10679956, b: 0.10679956, a: 1}
+  m_Sprite: {fileID: 21300000, guid: d38d75f5e4a8342d0b291c513a5fec99, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1038,8 +1039,8 @@ Transform:
   m_GameObject: {fileID: 770275862}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.45, y: -1.04, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -4.36, y: -2.12, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1076,18 +1077,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.018654823, y: -0.14807402}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 0.48, y: 0.74}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.12955093, y: 0.41142276}
   m_EdgeRadius: 0
 --- !u!114 &770275867
 MonoBehaviour:
@@ -1101,21 +1102,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4be7a44d1abf4b67a277c70d181b155f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 15
-  jumpForce: 8
-  gravityForce: -8
   groundLayer:
     serializedVersion: 2
-    m_Bits: 1
-  rb: {fileID: 770275863}
-  coll: {fileID: 770275866}
+    m_Bits: 128
+  moveSpeed: 8
   remainingJumps: 1
   maxJumpHeight: 4
   minJumpHeight: 1
-  timeToMaxJump: 0.7
+  timeToMaxJump: 0.5
   jumpVelocity: 0
   gravityScale: 0
   movementInput: {x: 0, y: 0}
+  attackCharge: 0
+--- !u!95 &770275868
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 770275862}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8f96fc2fe70b04893aff52f9216c16d2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &851199012
 GameObject:
   m_ObjectHideFlags: 0
@@ -1250,7 +1269,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1138953359}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 33d042ac015e1453281e66e2ab17cd6e, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1380,12 +1399,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 142247413736031974, guid: 5b846ff1aab5d4dbc9a98466884e5ba4, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.17622
+      objectReference: {fileID: 0}
+    - target: {fileID: 142247413736031974, guid: 5b846ff1aab5d4dbc9a98466884e5ba4, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.17622
+      objectReference: {fileID: 0}
+    - target: {fileID: 142247413736031974, guid: 5b846ff1aab5d4dbc9a98466884e5ba4, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.4895
+      objectReference: {fileID: 0}
+    - target: {fileID: 142247413736031974, guid: 5b846ff1aab5d4dbc9a98466884e5ba4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.10160261
+      value: -0.4979
       objectReference: {fileID: 0}
     - target: {fileID: 142247413736031974, guid: 5b846ff1aab5d4dbc9a98466884e5ba4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.0060031
+      value: 2.2565
       objectReference: {fileID: 0}
     - target: {fileID: 142247413736031974, guid: 5b846ff1aab5d4dbc9a98466884e5ba4, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1422,6 +1453,18 @@ PrefabInstance:
     - target: {fileID: 1482381183504727214, guid: 5b846ff1aab5d4dbc9a98466884e5ba4, type: 3}
       propertyPath: m_Name
       value: Ball
+      objectReference: {fileID: 0}
+    - target: {fileID: 1482381183504727214, guid: 5b846ff1aab5d4dbc9a98466884e5ba4, type: 3}
+      propertyPath: m_TagString
+      value: Ball
+      objectReference: {fileID: 0}
+    - target: {fileID: 2027204417558062521, guid: 5b846ff1aab5d4dbc9a98466884e5ba4, type: 3}
+      propertyPath: m_GravityScale
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5129473148477663767, guid: 5b846ff1aab5d4dbc9a98466884e5ba4, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 128
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

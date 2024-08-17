@@ -10,6 +10,7 @@ namespace UI.Behaviours
         private Label _currentStateLabel;
         private Label _currentInputLabel;
         private Label _currentVelocityLabel;
+        private Label _currentChargeLabel;
         public PlayerController player;
         
         private void Start()
@@ -22,6 +23,7 @@ namespace UI.Behaviours
             _currentStateLabel = this.GetComponent<UIDocument>().rootVisualElement.Q<Label>("current-state");
             _currentInputLabel = this.GetComponent<UIDocument>().rootVisualElement.Q<Label>("current-input");
             _currentVelocityLabel = this.GetComponent<UIDocument>().rootVisualElement.Q<Label>("current-velocity");
+            _currentChargeLabel = this.GetComponent<UIDocument>().rootVisualElement.Q<Label>("current-charge");
         }
 
         public void SetCurrentState(string stateName)
@@ -39,11 +41,17 @@ namespace UI.Behaviours
             _currentVelocityLabel.text = "Current Velocity: " + player.rb.velocity;
         }
 
+        public void SetCurrentAttackCharge()
+        {
+            _currentChargeLabel.text = "Att Charge: " + player.attackCharge;
+        }
+
         private void Update()
         {
             SetCurrentState(player.StateMachine.GetCurrentStateName());
             SetCurrentInputs();
             SetCurrentVelocity();
+            SetCurrentAttackCharge();
         }
     }
 }

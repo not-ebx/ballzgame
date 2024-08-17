@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class BallPhysics : MonoBehaviour
 {
@@ -20,6 +22,7 @@ public class BallPhysics : MonoBehaviour
 
     void Update()
     {
+<<<<<<< HEAD
         if (Input.GetKeyDown(KeyCode.F))
         {
             rb.velocity *= speedBoost;
@@ -30,11 +33,39 @@ public class BallPhysics : MonoBehaviour
         {
             rb.velocity = rb.velocity.normalized * maxSpeed;
         }
+=======
+
+    }
+
+    public void OnHitBall(Vector2 direction, float damage)
+    {
+        if (direction == Vector2.zero)
+        {
+            direction = -rb.velocity.normalized;
+        }
+        
+        rb.velocity *= (direction * (1 + damage + speedBoost));
+        rb.velocity = new Vector2(
+            Mathf.Abs(rb.velocity.x) * direction.x * (1 + damage + speedBoost),
+            Mathf.Abs(rb.velocity.y) * direction.y * (1 + damage + speedBoost)
+        );
+        Debug.Log("Hit the ball with Direction " + direction + " and Damage " + damage + ". Total Velocity is " + rb.velocity);
+        boostAudioSource.Play();
+>>>>>>> 669d3199173b2052f37d471f862266748e96c9ea
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
+<<<<<<< HEAD
 
+=======
+        // If colission is with the player, we dont want to bounce
+        if (collision.gameObject.CompareTag("Play"))
+        {
+            return;
+        }
+        
+>>>>>>> 669d3199173b2052f37d471f862266748e96c9ea
         bounceSound.Play();
 
         Vector2 direction = rb.velocity.normalized;

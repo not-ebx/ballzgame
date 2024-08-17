@@ -24,16 +24,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "HardAttack",
-                    "type": "Button",
-                    "id": "2715aa3f-4665-4a4a-9a29-873ffa776a70",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "SoftAttack",
+                    "name": "Attack",
                     "type": "Button",
                     "id": "763da8e4-9c95-4529-a06c-d8bf342e110c",
                     "expectedControlType": "Button",
@@ -111,23 +102,12 @@
                 },
                 {
                     "name": "",
-                    "id": "e2a03139-1cae-4473-92c7-30a409a46223",
+                    "id": "7cef0da0-12cb-4887-ad9a-6a913567aa70",
                     "path": "<Keyboard>/x",
                     "interactions": "",
                     "processors": "",
                     "groups": "New control scheme",
-                    "action": "HardAttack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "7cef0da0-12cb-4887-ad9a-6a913567aa70",
-                    "path": "<Keyboard>/d",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "New control scheme",
-                    "action": "SoftAttack",
+                    "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
