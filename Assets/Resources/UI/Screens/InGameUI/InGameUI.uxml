@@ -11,6 +11,7 @@
             <engine:Label name="current-state" text="CurrentState"/>
             <engine:Label name="current-velocity" text="CurrentVelocity"/>
             <engine:Label name="current-input" text="CurrentInputs" />
+            <engine:Label name="current-charge" text="CurrentCharge" />
         </engine:VisualElement>
     </engine:VisualElement>
     

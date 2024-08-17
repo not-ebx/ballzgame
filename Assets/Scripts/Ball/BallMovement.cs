@@ -13,7 +13,6 @@ public class BallPhysics : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
 
-
         Vector2 initialDirection = new Vector2(Random.Range(-2f, 2f), Random.Range(-2f, 2f)).normalized;
         rb.velocity = initialDirection * initialSpeed;
     }
@@ -24,8 +23,19 @@ public class BallPhysics : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F))
         {
             rb.velocity *= speedBoost; 
-            boostAudioSource.Play();
         }
+    }
+
+    public void OnHitBall(Vector2 direction, float damage)
+    {
+        // If the direction is 0,0, we don't want to multiply by 0 so we just set the direction to the opposite of the current one
+        if (direction == Vector2.zero)
+        {
+            direction = -rb.velocity.normalized;
+        }
+        
+        rb.velocity *= (direction * (1 + damage));
+        boostAudioSource.Play();
     }
 
     void OnCollisionEnter2D(Collision2D collision)

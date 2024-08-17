@@ -8,13 +8,13 @@ namespace Player
 {
     public class PlayerController : MonoBehaviour
     {
-        public float moveSpeed = 15f;
-        public float jumpForce = 8f;
-        public float gravityForce = -4f;
         public LayerMask groundLayer;
         
-        public Rigidbody2D rb;
-        public BoxCollider2D coll;
+        // Public but not serializable
+        
+        [NonSerialized] public Rigidbody2D rb;
+        [NonSerialized] public BoxCollider2D coll;
+        [NonSerialized] public Animator anim;
         
         public StateMachine.StateMachine StateMachine;
         public StateContainer StateContainer;
@@ -22,6 +22,8 @@ namespace Player
         private PlayerInput _playerInput;
         public PlayerInputActions PlayerInputActions;
 
+        
+        public float moveSpeed = 8f;
         public int remainingJumps = 1; // Doesn't count the ground one.
         public float maxJumpHeight = 4f;
         public float minJumpHeight = 1f;
@@ -30,11 +32,16 @@ namespace Player
         public float gravityScale;
         public Vector2 movementInput;
         private bool _isGrounded;
+        
+        // Attack Stuff
+        public float attackCharge = 0.0f;
+
 
         private void Awake()
         {
             rb = GetComponent<Rigidbody2D>();
             coll = GetComponent<BoxCollider2D>();
+            anim = GetComponent<Animator>();
 
             PlayerInputActions = new PlayerInputActions();
             StateContainer = new StateContainer(this);
@@ -51,10 +58,13 @@ namespace Player
             StateMachine.ChangeState(StateContainer.PlayerGroundState);
             
             // Set up jump physics
-            gravityScale = (2 * maxJumpHeight) / Mathf.Pow(timeToMaxJump, 2);
-            rb.gravityScale = gravityScale;
+            gravityScale = -(2 * maxJumpHeight) / (timeToMaxJump*timeToMaxJump);
+            jumpVelocity = Mathf.Abs(gravityScale) * timeToMaxJump;
+            
+            //gravityScale = (2 * maxJumpHeight) / Mathf.Pow(timeToMaxJump, 2);
+            rb.gravityScale = gravityScale / Physics2D.gravity.y;
 
-            jumpVelocity = Mathf.Sqrt(2 * gravityScale * Mathf.Abs(Physics2D.gravity.y) * maxJumpHeight);
+            //jumpVelocity = Mathf.Sqrt(2 * gravityScale * Mathf.Abs(Physics2D.gravity.y) * maxJumpHeight);
         }
 
         public bool IsJumping()
@@ -123,6 +133,23 @@ namespace Player
         private void Update()
         {
             StateMachine.Update();
+            // Depending on the x velocity, flip the sprite, but preserve the scale
+            if (rb.velocity.x > 0)
+            {
+                transform.localScale = new Vector3(
+                    Mathf.Abs(transform.localScale.x) * -1,
+                    transform.localScale.y,
+                    transform.localScale.z
+                );
+            }
+            else if (rb.velocity.x < 0)
+            {
+                transform.localScale = new Vector3(
+                    Mathf.Abs(transform.localScale.x),
+                    transform.localScale.y,
+                    transform.localScale.z
+                );
+            }
         }
         
         /*
@@ -161,6 +188,15 @@ namespace Player
             {
                 rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0);
             }
+        }
+        
+        /*
+         * Attack Logic
+         */
+        public void HitBall(Vector2 direction)
+        {
+            var damage = 4 * attackCharge;
+            attackCharge = 0.0f;
         }
     }
 }

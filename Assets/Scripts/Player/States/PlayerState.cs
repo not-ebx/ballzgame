@@ -5,12 +5,12 @@ namespace Player.States
 {
     public class PlayerState : IState
     {
-        protected PlayerController PlayerController;
+        protected PlayerController PController;
         protected Vector2 MovementInput;
         
-        public PlayerState(PlayerController playerController)
+        public PlayerState(PlayerController pController)
         {
-            PlayerController = playerController;
+            PController = pController;
         }
 
         public string GetName()
