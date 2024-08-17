@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<engine:UXML
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:engine="UnityEngine.UIElements"
+    xmlns:editor="UnityEditor.UIElements"
+    xsi:noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd"
+>
+    <engine:Style src="InGameUI.uss"/>
+    <engine:VisualElement class="whole-screen-element">
+        <engine:VisualElement class="top-bar">
+            <engine:Label name="current-state" text="CurrentState"/>
+            <engine:Label name="current-velocity" text="CurrentVelocity"/>
+            <engine:Label name="current-input" text="CurrentInputs" />
+        </engine:VisualElement>
+    </engine:VisualElement>
+    
+</engine:UXML>
