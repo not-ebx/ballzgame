@@ -19,7 +19,6 @@ namespace Player.States
         public override void Enter()
         {
             base.Enter();
-            _attackDirection = PController.PlayerInputActions.Player.Move.ReadValue<Vector2>();
             _attackChargeTime = 0f;
             PController.PlayerInputActions.Player.Attack.performed += OnGroundAttack;
             PController.PlayerInputActions.Player.Attack.canceled += OnGroundAttackCanceled;
@@ -35,6 +34,7 @@ namespace Player.States
         public override void Update()
         {
             base.Update();
+            PController.rb.velocity = new Vector2(0,0);
             if (!_isCharging && IsAttackAnimationFinished())
             {
                 PController.StateMachine.ChangeState(PController.StateContainer.PlayerGroundState);
@@ -61,6 +61,8 @@ namespace Player.States
         {
             if (!_isCharging)
                 return;
+            
+            _attackDirection = PController.PlayerInputActions.Player.Move.ReadValue<Vector2>();
             CreateHitBox();
             _attackChargeTime = 0.0f;
             _attackDirection = Vector2.zero;
@@ -77,7 +79,7 @@ namespace Player.States
             var hitboxCollider = _hitbox.AddComponent<BoxCollider2D>();
             hitboxCollider.isTrigger = true;
             
-            hitboxCollider.size = new Vector2(2.1f, 1.25f);
+            hitboxCollider.size = new Vector2(2.5f, 1.5f);
             hitboxCollider.offset = new Vector2(0.5f, 0);
 
             _hitboxScript = _hitbox.AddComponent<PlayerHitbox>();

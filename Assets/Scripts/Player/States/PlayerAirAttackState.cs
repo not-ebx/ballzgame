@@ -52,7 +52,7 @@ namespace Player.States
             var hitboxCollider = _hitbox.AddComponent<BoxCollider2D>();
             hitboxCollider.isTrigger = true;
             
-            hitboxCollider.size = new Vector2(2.1f, 1.25f);
+            hitboxCollider.size = new Vector2(2.5f, 1.5f);
             hitboxCollider.offset = new Vector2(0.5f, 0);
 
             _hitboxScript = _hitbox.AddComponent<PlayerHitbox>();

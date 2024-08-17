@@ -22,27 +22,32 @@ public class BallPhysics : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            rb.velocity *= speedBoost; 
-        }
     }
 
     public void OnHitBall(Vector2 direction, float damage)
     {
-        // If the direction is 0,0, we don't want to multiply by 0 so we just set the direction to the opposite of the current one
         if (direction == Vector2.zero)
         {
             direction = -rb.velocity.normalized;
         }
         
-        rb.velocity = (direction * (1 + damage));
+        rb.velocity *= (direction * (1 + damage + speedBoost));
+        rb.velocity = new Vector2(
+            Mathf.Abs(rb.velocity.x) * direction.x * (1 + damage + speedBoost),
+            Mathf.Abs(rb.velocity.y) * direction.y * (1 + damage + speedBoost)
+        );
         Debug.Log("Hit the ball with Direction " + direction + " and Damage " + damage + ". Total Velocity is " + rb.velocity);
         boostAudioSource.Play();
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
+        // If colission is with the player, we dont want to bounce
+        if (collision.gameObject.CompareTag("Play"))
+        {
+            return;
+        }
+        
         bounceSound.Play();
         Vector2 direction = rb.velocity.normalized;
 
