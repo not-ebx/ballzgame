@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Player.States;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -13,16 +14,16 @@ namespace Player
         // Public but not serializable
         
         [NonSerialized] public Rigidbody2D rb;
-        [NonSerialized] public BoxCollider2D coll;
+        [NonSerialized] public CapsuleCollider2D coll;
         [NonSerialized] public Animator anim;
         [NonSerialized] public SpriteRenderer sprite;
+        
         
         public StateMachine.StateMachine StateMachine;
         public StateContainer StateContainer;
         
         private PlayerInput _playerInput;
         public PlayerInputActions PlayerInputActions;
-
         
         public float moveSpeed = 8f;
         public int remainingJumps = 1; // Doesn't count the ground one.
@@ -42,7 +43,7 @@ namespace Player
         private void Awake()
         {
             rb = GetComponent<Rigidbody2D>();
-            coll = GetComponent<BoxCollider2D>();
+            coll = GetComponent<CapsuleCollider2D>();
             anim = GetComponent<Animator>();
             sprite = GetComponent<SpriteRenderer>();
 

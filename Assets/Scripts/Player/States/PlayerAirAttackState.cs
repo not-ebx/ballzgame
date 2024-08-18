@@ -42,6 +42,11 @@ namespace Player.States
             {
                 PController.StateMachine.ChangeState(PController.StateContainer.PlayerAirState);
             }
+
+            if (PController.IsGrounded())
+            {
+                PController.StateMachine.ChangeState(PController.StateContainer.PlayerLandingState);
+            }
         }
 
         private bool IsAttackAnimationFinished()
