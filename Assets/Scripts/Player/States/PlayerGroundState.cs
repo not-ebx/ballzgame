@@ -17,10 +17,11 @@ namespace Player.States
             base.Enter();
             PController.movementInput = Vector2.zero;
             PController.RestartRemainingJumps();
+            PController.RestartRemainingAerial();
+            
             PController.PlayerInputActions.Player.Move.performed += PController.OnMove;
             PController.PlayerInputActions.Player.Move.canceled  += PController.OnMoveCanceled;
-            PController.PlayerInputActions.Player.Jump.performed += PController.OnJump;
-            PController.PlayerInputActions.Player.Jump.canceled  += PController.OnJumpCanceled; 
+            PController.PlayerInputActions.Player.Jump.performed += OnGroundJump;
             
             PController.PlayerInputActions.Player.Attack.performed += OnGroundAttack;
             
@@ -36,7 +37,7 @@ namespace Player.States
                 PController.movementInput.x * PController.moveSpeed,
                 PController.rb.velocity.y
             );
-            PController.anim.Play(PController.movementInput.x != 0 ? "Walking" : "Idle");
+            PController.anim.Play(PController.movementInput.x != 0 ? "Running" : "Idle");
             
             // Check if it should change state to jumping or falling
             if (!PController.IsGrounded())
@@ -51,9 +52,13 @@ namespace Player.States
             base.Exit();
             PController.PlayerInputActions.Player.Move.performed   -= PController.OnMove;
             PController.PlayerInputActions.Player.Move.canceled    -= PController.OnMoveCanceled;
-            PController.PlayerInputActions.Player.Jump.performed   -= PController.OnJump; 
-            PController.PlayerInputActions.Player.Jump.canceled    -= PController.OnJumpCanceled; 
+            PController.PlayerInputActions.Player.Jump.performed   -= OnGroundJump; 
             PController.PlayerInputActions.Player.Attack.performed -= OnGroundAttack;
+        }
+        
+        private void OnGroundJump(InputAction.CallbackContext context)
+        {
+            PController.StateMachine.ChangeState(PController.StateContainer.PlayerJumpState);
         }
         
         public void OnGroundAttack(InputAction.CallbackContext context)
