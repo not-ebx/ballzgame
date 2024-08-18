@@ -15,6 +15,7 @@ namespace Player
         [NonSerialized] public Rigidbody2D rb;
         [NonSerialized] public BoxCollider2D coll;
         [NonSerialized] public Animator anim;
+        [NonSerialized] public SpriteRenderer sprite;
         
         public StateMachine.StateMachine StateMachine;
         public StateContainer StateContainer;
@@ -25,6 +26,7 @@ namespace Player
         
         public float moveSpeed = 8f;
         public int remainingJumps = 1; // Doesn't count the ground one.
+        public int remainingAerial = 1;
         public float maxJumpHeight = 4f;
         public float minJumpHeight = 1f;
         public float timeToMaxJump = 0.7f;
@@ -42,6 +44,7 @@ namespace Player
             rb = GetComponent<Rigidbody2D>();
             coll = GetComponent<BoxCollider2D>();
             anim = GetComponent<Animator>();
+            sprite = GetComponent<SpriteRenderer>();
 
             PlayerInputActions = new PlayerInputActions();
             StateContainer = new StateContainer(this);
@@ -50,6 +53,11 @@ namespace Player
         public void RestartRemainingJumps()
         {
             remainingJumps = 1;
+        }
+        
+        public void RestartRemainingAerial()
+        {
+            remainingAerial = 1;
         }
         
         private void Start()
@@ -137,7 +145,7 @@ namespace Player
             if (rb.velocity.x > 0)
             {
                 transform.localScale = new Vector3(
-                    Mathf.Abs(transform.localScale.x) * -1,
+                    Mathf.Abs(transform.localScale.x),
                     transform.localScale.y,
                     transform.localScale.z
                 );
@@ -145,7 +153,7 @@ namespace Player
             else if (rb.velocity.x < 0)
             {
                 transform.localScale = new Vector3(
-                    Mathf.Abs(transform.localScale.x),
+                    Mathf.Abs(transform.localScale.x) * -1,
                     transform.localScale.y,
                     transform.localScale.z
                 );
@@ -191,12 +199,31 @@ namespace Player
         }
         
         /*
-         * Attack Logic
+         * Animation Helper Tools
          */
-        public void HitBall(Vector2 direction)
+        public float GetAnimationLength()
         {
-            var damage = 4 * attackCharge;
-            attackCharge = 0.0f;
+            var clipInfo = anim.GetCurrentAnimatorClipInfo(0);
+            var currentClip = clipInfo[0].clip;
+            // Print the name of animation
+            Debug.Log("Current animation: " + currentClip.name);
+            
+            // Get the length of the animation in seconds
+            return currentClip.length;
         }
+        
+        public float GetAnimationLengthByName(string animationName)
+        {
+            var clip = anim.runtimeAnimatorController.animationClips;
+            foreach (var animationClip in clip)
+            {
+                if (animationClip.name == animationName)
+                {
+                    return animationClip.length;
+                }
+            }
+            return 0;
+        }
+
     }
 }

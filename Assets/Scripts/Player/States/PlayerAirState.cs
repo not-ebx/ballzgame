@@ -37,11 +37,18 @@ namespace Player.States
             );
             _smoothFactor = 0.01f;
 
-            PController.anim.Play("Jumping");
-
-            if (PController.IsGrounded())
+            if (PController.IsJumping())
             {
-                PController.StateMachine.ChangeState(PController.StateContainer.PlayerGroundState);
+                PController.anim.Play("JumpUp");
+            }
+            else
+            {
+                PController.anim.Play("JumpFalling");
+            }
+
+            if (PController.IsGrounded() && PController.rb.velocity.y <= 0)
+            {
+                PController.StateMachine.ChangeState(PController.StateContainer.PlayerLandingState);
             }
         }
 
@@ -73,6 +80,9 @@ namespace Player.States
 
         private void OnAirAttack(InputAction.CallbackContext context)
         {
+            if (PController.remainingAerial <= 0)
+                return;
+            PController.remainingAerial--;
             PController.StateMachine.ChangeState(PController.StateContainer.PlayerAirAttackState);
         }
         

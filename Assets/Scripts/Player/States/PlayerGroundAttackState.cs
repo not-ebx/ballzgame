@@ -7,7 +7,6 @@ namespace Player.States
     public class PlayerGroundAttackState : PlayerState
     {
         private GameObject _hitbox;
-        private PlayerHitbox _hitboxScript;
         private bool _isCharging;
         private float _attackChargeTime;
         private Vector2 _attackDirection;
@@ -27,8 +26,7 @@ namespace Player.States
             _attackChargeTime = Time.time;
             _isCharging = true;
             
-            PController.anim.Play("Attacking");
-            PController.anim.speed = 0;
+            PController.anim.Play("GroundAttackCharge");
         }
         
         public override void Update()
@@ -37,18 +35,33 @@ namespace Player.States
             PController.rb.velocity = new Vector2(0,0);
             if (!_isCharging && IsAttackAnimationFinished())
             {
+                // Restore sprite color
+                PController.sprite.color = Color.white;
                 PController.StateMachine.ChangeState(PController.StateContainer.PlayerGroundState);
             }
             else if (_isCharging)
             {
                 PController.attackCharge = Mathf.Min(CalculateTimeDifference(_attackChargeTime), 1.0f);
+                // If the charge is higher than 0.4, slowly start coloring the sprite to yellow
+                if (IsChargeAnimationFinished() && PController.attackCharge > 0)
+                {
+                    PController.sprite.color = Color.Lerp(Color.white, new Color(255,213,135), PController.attackCharge);
+                }
             }
         }
 
         private bool IsAttackAnimationFinished()
         {
+            // Check if the current animation statename is "GroundAttackDischarge"
             var animState = PController.anim.GetCurrentAnimatorStateInfo(0);
-            return animState.normalizedTime >= 1.0f;
+            return animState.IsName("GroundAttackDischarge") && IsCurrentAnimationFinished();
+        }
+        
+        private bool IsChargeAnimationFinished()
+        {
+            // Check if the current animation statename is "GroundAttackDischarge"
+            var animState = PController.anim.GetCurrentAnimatorStateInfo(0);
+            return animState.IsName("GroundAttackCharge") && IsCurrentAnimationFinished();
         }
         
         // Custom Movements
@@ -62,36 +75,28 @@ namespace Player.States
             if (!_isCharging)
                 return;
             
+            PController.anim.Play("GroundAttackDischarge");
+            var animationLength = PController.GetAnimationLength();
+            Debug.Log("Ground attack length: " + animationLength);
             _attackDirection = PController.PlayerInputActions.Player.Move.ReadValue<Vector2>();
-            CreateHitBox();
+            _hitbox = BatHitboxManager.CreateHitBox(
+                PController.gameObject,
+                _attackDirection,
+                4 * PController.attackCharge,
+                animationLength,
+                AttackType.GroundAttack
+            );
+            
             _attackChargeTime = 0.0f;
             _attackDirection = Vector2.zero;
             _isCharging = false;
-            PController.anim.Play("Attacking");
-            PController.anim.speed = 1;
         }
 
-        private void CreateHitBox()
-        {
-            _hitbox = new GameObject("HitBox");
-            _hitbox.transform.parent = PController.transform;
-            _hitbox.transform.localPosition = new Vector3(0, 0, 0);
-            var hitboxCollider = _hitbox.AddComponent<BoxCollider2D>();
-            hitboxCollider.isTrigger = true;
-            
-            hitboxCollider.size = new Vector2(2.5f, 1.5f);
-            hitboxCollider.offset = new Vector2(0.5f, 0);
-
-            _hitboxScript = _hitbox.AddComponent<PlayerHitbox>();
-            _hitboxScript.damage = 4 * PController.attackCharge;
-            _hitboxScript.hitBoxDirection = _attackDirection;
-        }
-        
         public override void Exit()
         {
             base.Exit();
             Object.Destroy(_hitbox);
-            Object.Destroy(_hitboxScript);
+            PController.attackCharge = 0;
             PController.PlayerInputActions.Player.Attack.performed -= OnGroundAttack;
             PController.PlayerInputActions.Player.Attack.canceled -= OnGroundAttackCanceled;
         }
