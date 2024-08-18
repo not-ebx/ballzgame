@@ -13,31 +13,40 @@ public class Dummy : MonoBehaviour
     public AudioSource destroySound; 
     public GameObject damageTextPrefab;
     public float respawnTime = 5f;
-
+    public float spawnTime = 0f;
+    public float despawnTime = 0f;
     public GameObject explosionPrefab;
 
     private SpriteRenderer spriteRenderer;
     private Collider2D collider2D;
     private Color originalColor;
-    private float hitTimer;
+    private bool isActive = true;
 
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        collider2D = GetComponent<Collider2D>(); 
+        collider2D = GetComponent<Collider2D>();
         originalColor = spriteRenderer.color;
-        hitTimer = 0f;
+
+        if (spawnTime > 0)
+        {
+            gameObject.SetActive(false);
+            Invoke("ActivateDummy", spawnTime);
+        }
+    }
+
+
+   private void ActivateDummy()
+    {
+        gameObject.SetActive(true);
+        isActive = true;
     }
 
     void Update()
     {
-        if (hitTimer > 0)
+        if (despawnTime > 0)
         {
-            hitTimer -= Time.deltaTime;
-            if (hitTimer <= 0)
-            {
-                spriteRenderer.color = originalColor;
-            }
+            Destroy(gameObject, despawnTime);
         }
     }
 
@@ -55,9 +64,15 @@ public class Dummy : MonoBehaviour
         else
         {
             hitSound.Play();
-            spriteRenderer.color = hitColor;
-            hitTimer = hitDuration;
+            StartCoroutine(ChangeColor(hitDuration));
         }
+    }
+
+    private IEnumerator ChangeColor(float duration)
+    {
+        spriteRenderer.color = hitColor;
+        yield return new WaitForSeconds(duration);
+        spriteRenderer.color = originalColor;
     }
 
     private IEnumerator HandleInvisibility()
@@ -94,7 +109,7 @@ public class Dummy : MonoBehaviour
     {
         if (explosionPrefab != null)
         {
-            Vector3 spawnPosition = explosionOffset;
+            Vector3 spawnPosition  =  transform.position;
             GameObject explosion = Instantiate(explosionPrefab, spawnPosition, Quaternion.identity);
         }
     }

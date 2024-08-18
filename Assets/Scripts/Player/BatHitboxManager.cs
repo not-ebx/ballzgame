@@ -23,16 +23,14 @@ namespace Player
 
             if (attType == AttackType.AerialAttack)
             {
-                hitboxCollider.size = new Vector2(1.9f, 1.4f);
-                hitboxCollider.offset = new Vector2(0.1f * hitBoxDirection.x, 1f);
+                hitboxCollider.size = new Vector2(1.55f, 1.8f);
+                hitboxCollider.offset = new Vector2(-0.1f * hitBoxDirection.x, 0.98f);
             }
             else
             {
-                hitboxCollider.size = new Vector2(2.5f, 1.7f);
-                hitboxCollider.offset = new Vector2(0f * hitBoxDirection.x, 1.35f);
+                hitboxCollider.size = new Vector2(1.45f, 1.5f);
+                hitboxCollider.offset = new Vector2(-0.1f * hitBoxDirection.x, 1.38f);
             }
-            
-            hitboxCollider.size = new Vector2(2.5f, 1.5f);
 
             var hitboxScript = hitbox.AddComponent<PlayerHitbox>();
             hitboxScript.damage = damage;

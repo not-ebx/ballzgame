@@ -5,7 +5,7 @@ using Random = UnityEngine.Random;
 public class BallPhysics : MonoBehaviour
 {
     public float initialSpeed = 20f;
-    public float frictionCoefficient = 0.97f; 
+    public float frictionCoefficient = 0.98f; 
     public float maxSpeed = 400f;
     public float dmg;
     private Rigidbody2D rb;
@@ -14,7 +14,7 @@ public class BallPhysics : MonoBehaviour
     private float limitedSpeed;
     public AudioSource bounceSound;
     public AudioSource boostAudioSource;
-    public float speedBoost = 12f;
+    public float speedBoost = 16f;
 
     void Start()
     {
@@ -34,6 +34,7 @@ public class BallPhysics : MonoBehaviour
 
     public void OnHitBall(Vector2 direction, float damage)
     {
+        boostAudioSource.Play();
         if (direction == Vector2.zero)
         {
             direction = -rb.velocity.normalized;
@@ -49,7 +50,6 @@ public class BallPhysics : MonoBehaviour
         rb.velocity = direction * Mathf.Min(newSpeed, maxSpeed);
 
         Debug.Log("Hit the ball with Direction " + direction + " and Damage " + damage + ". Total Velocity is " + rb.velocity);
-        boostAudioSource.Play();
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -61,11 +61,11 @@ public class BallPhysics : MonoBehaviour
         rb.velocity = direction * (rb.velocity.magnitude * frictionCoefficient);
 
         Dummy dummy = collision.gameObject.GetComponent<Dummy>();
- 
 
         if (dummy != null)
         {
             dmg = rb.velocity.magnitude;
+            rb.velocity = direction * (rb.velocity.magnitude * 0.9f);
             dummy.TakeDamage(dmg);
         }
     }
