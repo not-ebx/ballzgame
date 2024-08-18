@@ -45,7 +45,7 @@ namespace Player.States
                 // If the charge is higher than 0.4, slowly start coloring the sprite to yellow
                 if (IsChargeAnimationFinished() && PController.attackCharge > 0)
                 {
-                    PController.sprite.color = Color.Lerp(Color.white, new Color(255,213,135), PController.attackCharge);
+                    PController.sprite.color = Color.Lerp(Color.white, Color.yellow, PController.attackCharge);
                 }
             }
         }
