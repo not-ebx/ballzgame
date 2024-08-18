@@ -7,16 +7,16 @@ namespace Player.States
         private GameObject _hitbox;
         private bool _isCharging;
         private Vector2 _attackDirection;
-        
+
         public PlayerAirAttackState(PlayerController pController) : base(pController)
         {
         }
-        
+
         public override void Enter()
         {
             base.Enter();
             _attackDirection = PController.PlayerInputActions.Player.Move.ReadValue<Vector2>();
-            
+
             PController.anim.Play("JumpAttack");
             var animationLength = PController.GetAnimationLength();
             Debug.Log("JumpAttack animation length: " + animationLength);
@@ -29,7 +29,7 @@ namespace Player.States
                 AttackType.AerialAttack
             );
         }
-        
+
         public override void Update()
         {
             base.Update();
@@ -37,7 +37,7 @@ namespace Player.States
                 PController.rb.velocity.x,
                 PController.rb.velocity.y
             );
-            
+
             if (IsAttackAnimationFinished())
             {
                 PController.StateMachine.ChangeState(PController.StateContainer.PlayerAirState);
@@ -50,12 +50,13 @@ namespace Player.States
             var animState = PController.anim.GetCurrentAnimatorStateInfo(0);
             return animState.IsName("JumpAttack") && IsCurrentAnimationFinished();
         }
-        
-        
+
+
         public override void Exit()
         {
             base.Exit();
             Object.Destroy(_hitbox);
         }
-       
+
     }
+}
