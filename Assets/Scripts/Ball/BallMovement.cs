@@ -7,10 +7,14 @@ public class BallPhysics : MonoBehaviour
     public float initialSpeed = 20f;
     public float frictionCoefficient = 0.97f; 
     public float maxSpeed = 400f;
+    public float dmg;
     private Rigidbody2D rb;
+    private float newSpeed;
+    private float currentSpeed;
+    private float limitedSpeed;
     public AudioSource bounceSound;
     public AudioSource boostAudioSource;
-    public float speedBoost = 4f;
+    public float speedBoost = 12f;
 
     void Start()
     {
@@ -22,19 +26,10 @@ public class BallPhysics : MonoBehaviour
 
     void Update()
     {
-<<<<<<< HEAD
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            rb.velocity *= speedBoost;
-            boostAudioSource.Play();
-        }
+        currentSpeed = rb.velocity.magnitude;
+        limitedSpeed = Mathf.Min(currentSpeed, maxSpeed);
 
-        if (rb.velocity.magnitude > maxSpeed)
-        {
-            rb.velocity = rb.velocity.normalized * maxSpeed;
-        }
-=======
-
+        rb.velocity = rb.velocity.normalized * limitedSpeed;
     }
 
     public void OnHitBall(Vector2 direction, float damage)
@@ -43,41 +38,36 @@ public class BallPhysics : MonoBehaviour
         {
             direction = -rb.velocity.normalized;
         }
-        
-        rb.velocity *= (direction * (1 + damage + speedBoost));
-        rb.velocity = new Vector2(
-            Mathf.Abs(rb.velocity.x) * direction.x * (1 + damage + speedBoost),
-            Mathf.Abs(rb.velocity.y) * direction.y * (1 + damage + speedBoost)
-        );
+        else
+        {
+            direction = direction.normalized; 
+        }
+
+
+        newSpeed = currentSpeed + speedBoost + (damage + 1);
+
+        rb.velocity = direction * Mathf.Min(newSpeed, maxSpeed);
+
         Debug.Log("Hit the ball with Direction " + direction + " and Damage " + damage + ". Total Velocity is " + rb.velocity);
         boostAudioSource.Play();
->>>>>>> 669d3199173b2052f37d471f862266748e96c9ea
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-<<<<<<< HEAD
-
-=======
-        // If colission is with the player, we dont want to bounce
-        if (collision.gameObject.CompareTag("Play"))
-        {
-            return;
-        }
-        
->>>>>>> 669d3199173b2052f37d471f862266748e96c9ea
         bounceSound.Play();
 
         Vector2 direction = rb.velocity.normalized;
 
-        float angleFromHorizontal = Mathf.Abs(Vector2.Angle(direction, Vector2.right));
-        float angleFromVertical = Mathf.Abs(Vector2.Angle(direction, Vector2.up));
+        rb.velocity = direction * (rb.velocity.magnitude * frictionCoefficient);
 
-        rb.velocity = direction.normalized * (rb.velocity.magnitude * frictionCoefficient);
+        Dummy dummy = collision.gameObject.GetComponent<Dummy>();
+ 
 
-        if (rb.velocity.magnitude > maxSpeed)
+        if (dummy != null)
         {
-            rb.velocity = rb.velocity.normalized * maxSpeed;
+            dmg = rb.velocity.magnitude;
+            dummy.TakeDamage(dmg);
         }
     }
+
 }
