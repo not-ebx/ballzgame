@@ -26,6 +26,7 @@ namespace Player.States
             _attackChargeTime = Time.time;
             _isCharging = true;
 
+            _attackDirection = PController.PlayerInputActions.Player.Move.ReadValue<Vector2>();
             PController.anim.Play("GroundAttackCharge");
         }
 
@@ -42,6 +43,7 @@ namespace Player.States
             else if (_isCharging)
             {
                 PController.attackCharge = Mathf.Min(CalculateTimeDifference(_attackChargeTime), 1.0f);
+                _attackDirection = PController.PlayerInputActions.Player.Move.ReadValue<Vector2>();
                 // If the charge is higher than 0.4, slowly start coloring the sprite to yellow
                 if (IsChargeAnimationFinished() && PController.attackCharge > 0)
                 {
@@ -78,7 +80,6 @@ namespace Player.States
             PController.anim.Play("GroundAttackDischarge");
             var animationLength = PController.GetAnimationLength();
             Debug.Log("Ground attack length: " + animationLength);
-            _attackDirection = PController.PlayerInputActions.Player.Move.ReadValue<Vector2>();
             _hitbox = BatHitboxManager.CreateHitBox(
                 PController.gameObject,
                 _attackDirection,

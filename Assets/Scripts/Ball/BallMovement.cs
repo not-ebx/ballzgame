@@ -6,19 +6,22 @@ public class BallPhysics : MonoBehaviour
 {
     public float initialSpeed = 20f;
     public float frictionCoefficient = 0.98f; 
-    public float maxSpeed = 400f;
+    public float maxSpeed = 200f;
     public float dmg;
     private Rigidbody2D rb;
     private float newSpeed;
-    private float currentSpeed;
+    public float currentSpeed;
     private float limitedSpeed;
     public AudioSource bounceSound;
     public AudioSource boostAudioSource;
     public float speedBoost = 16f;
 
+    private Animator _anim;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        _anim = GetComponent<Animator>();
 
         Vector2 initialDirection = new Vector2(Random.Range(-2f, 2f), Random.Range(-2f, 2f)).normalized;
         rb.velocity = initialDirection * initialSpeed;
@@ -28,8 +31,12 @@ public class BallPhysics : MonoBehaviour
     {
         currentSpeed = rb.velocity.magnitude;
         limitedSpeed = Mathf.Min(currentSpeed, maxSpeed);
-
         rb.velocity = rb.velocity.normalized * limitedSpeed;
+        _anim.SetFloat("Speed", currentSpeed);
+        
+        // Set the rotation of the ball to the direction it is moving
+        var angle = Mathf.Atan2(rb.velocity.y, -rb.velocity.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
     }
 
     public void OnHitBall(Vector2 direction, float damage)

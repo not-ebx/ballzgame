@@ -28,8 +28,8 @@ namespace Player
             }
             else
             {
-                hitboxCollider.size = new Vector2(1.45f, 1.5f);
-                hitboxCollider.offset = new Vector2(-0.1f * hitBoxDirection.x, 1.38f);
+                hitboxCollider.size = new Vector2(1.65f, 1.7f);
+                hitboxCollider.offset = new Vector2(0.03f * hitBoxDirection.x, 1.3f);
             }
 
             var hitboxScript = hitbox.AddComponent<PlayerHitbox>();

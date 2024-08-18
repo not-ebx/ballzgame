@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5717802123207133571}
   - component: {fileID: 1895359784327561250}
   - component: {fileID: 615141042202270535}
+  - component: {fileID: 8711775307605656789}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Untagged
@@ -78,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: cac0ec3db8322124cb279cfb13b2f461, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c60141dc4aa634467af1cb8c602c00ee, type: 3}
   m_Color: {r: 0.76729554, g: 0.76729554, b: 0.76729554, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -165,6 +166,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialSpeed: 20
   frictionCoefficient: 0.9
+  maxSpeed: 400
+  dmg: 0
   bounceSound: {fileID: 1895359784327561250}
   boostAudioSource: {fileID: 615141042202270535}
   speedBoost: 4
@@ -360,3 +363,24 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &8711775307605656789
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1482381183504727214}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 44963a3b194cd498cbced13e37400b9e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
