@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5393422731949734486}
   - component: {fileID: 46410995207861855}
   - component: {fileID: 7141443614026953950}
-  - component: {fileID: 7104928038383185898}
+  - component: {fileID: -2237222979271330994}
   m_Layer: 0
   m_Name: Target
   m_TagString: Untagged
@@ -147,11 +147,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 400
   hitColor: {r: 0.8490566, g: 0.237629, b: 0.237629, a: 1}
+  dummyValue: 50
   hitDuration: 0.2
   hitSound: {fileID: 7141443614026953950}
   damageTextOffset: {x: 0, y: 1.5, z: 0}
   explosionOffset: {x: 0, y: 0, z: 0}
-  destroySound: {fileID: 7104928038383185898}
+  destroySound: {fileID: -2237222979271330994}
   damageTextPrefab: {fileID: 8239697319889856272, guid: 21195cdb1c192b943a77a1d0f8bbb5a6, type: 3}
   respawnTime: 5
   spawnTime: 0
@@ -167,10 +168,10 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: aa0e84220558d82438ad99357d1ddd7a, type: 3}
+  m_audioClip: {fileID: 8300000, guid: a52e861817697b14f895932b07591331, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.096
-  m_Pitch: 0.84
+  m_Volume: 0.117
+  m_Pitch: 1.06
   Loop: 0
   Mute: 0
   Spatialize: 0
@@ -253,7 +254,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!82 &7104928038383185898
+--- !u!82 &-2237222979271330994
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -265,8 +266,8 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: aa0e84220558d82438ad99357d1ddd7a, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.134
-  m_Pitch: 1
+  m_Volume: 0.064
+  m_Pitch: 0.87
   Loop: 0
   Mute: 0
   Spatialize: 0

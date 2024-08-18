@@ -5,6 +5,7 @@ public class Dummy : MonoBehaviour
 {
     public float health = 200f;
     public Color hitColor = Color.red;
+    public float dummyValue = 50f;
     public float hitDuration = 0.2f;
     public AudioSource hitSound;
     public Vector3 damageTextOffset = new Vector3(0, 1.5f, 0);
@@ -60,6 +61,7 @@ public class Dummy : MonoBehaviour
         if (health <= 0)
         {
             StartCoroutine(HandleInvisibility());
+            
         }
         else
         {
@@ -101,7 +103,7 @@ public class Dummy : MonoBehaviour
             GameObject damageText = Instantiate(damageTextPrefab, spawnPosition, Quaternion.identity);
             damageText.GetComponent<TextMesh>().text = roundedDamage.ToString();
 
-            Destroy(damageText, 0.4f);
+            Destroy(damageText, 0.3f);
         }
     }
 
