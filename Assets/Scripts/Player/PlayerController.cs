@@ -28,10 +28,11 @@ namespace Player
         private PlayerInput _playerInput;
         public PlayerInputActions PlayerInputActions;
         
-        public float moveSpeed = 8f;
+        public float moveSpeed = 10f;
         public int remainingJumps = 1; // Doesn't count the ground one.
-        public int remainingAerial = 1;
+        public int remainingAerial = 2;
         public float maxJumpHeight = 4f;
+
         public float minJumpHeight = 1f;
         public float timeToMaxJump = 0.7f;
         public float jumpVelocity;
@@ -74,7 +75,7 @@ namespace Player
         
         public void RestartRemainingAerial()
         {
-            remainingAerial = 1;
+            remainingAerial = 2;
         }
         
         private void Start()

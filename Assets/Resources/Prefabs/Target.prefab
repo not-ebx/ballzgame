@@ -148,6 +148,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 400
   hitColor: {r: 0.8490566, g: 0.237629, b: 0.237629, a: 1}
+  reflectColor: {r: 0, g: 0.5529412, b: 1, a: 1}
   dummyValue: 50
   hitDuration: 0.2
   hitSound: {fileID: 7141443614026953950}
@@ -173,7 +174,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: a52e861817697b14f895932b07591331, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.088
+  m_Volume: 0.066
   m_Pitch: 1.06
   Loop: 0
   Mute: 0

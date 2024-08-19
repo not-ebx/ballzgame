@@ -21,10 +21,8 @@ namespace Player.States
                 0,
                 PController.rb.velocity.y
             );
-            if (IsCurrentAnimationFinished())
-            {
-                PController.StateMachine.ChangeState(PController.StateContainer.PlayerGroundState);
-            }
+
+            PController.StateMachine.ChangeState(PController.StateContainer.PlayerGroundState);
         }
 
         public override void Exit()

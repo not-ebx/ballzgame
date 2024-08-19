@@ -121,21 +121,28 @@ public class Dummy : MonoBehaviour
 
         spriteRenderer.enabled = false;
         _c2d.enabled = false;
-        if (_cedge != null)
+
+        // Desactivar todos los EdgeCollider2D
+        EdgeCollider2D[] edgeColliders = GetComponents<EdgeCollider2D>();
+        foreach (EdgeCollider2D edgeCollider in edgeColliders)
         {
-            _cedge.enabled = false;
+            edgeCollider.enabled = false;
         }
+
         health = maxHealth;
         _anim.SetFloat("health", maxHealth);
         yield return new WaitForSeconds(respawnTime);
 
         spriteRenderer.enabled = true;
         _c2d.enabled = true;
-        if (_cedge != null)
+
+        // Reactivar todos los EdgeCollider2D
+        foreach (EdgeCollider2D edgeCollider in edgeColliders)
         {
-            _cedge.enabled = true;
+            edgeCollider.enabled = true;
         }
     }
+
 
     private void ShowDamageText(float dmg)
     {

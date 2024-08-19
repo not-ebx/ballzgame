@@ -102,6 +102,17 @@
                 },
                 {
                     "name": "",
+                    "id": "8c3cec45-3976-452b-bfdd-4e5807de28c3",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "7cef0da0-12cb-4887-ad9a-6a913567aa70",
                     "path": "<Keyboard>/x",
                     "interactions": "",

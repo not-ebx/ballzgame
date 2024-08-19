@@ -35,7 +35,7 @@ namespace Player.States
                 Mathf.Lerp(PController.rb.velocity.x, targetVelocityX, _smoothFactor),
                 PController.rb.velocity.y
             );
-            _smoothFactor = 0.01f;
+            _smoothFactor = 1f;
 
             if (PController.IsJumping())
             {
