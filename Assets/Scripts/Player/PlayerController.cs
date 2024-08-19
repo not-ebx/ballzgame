@@ -116,15 +116,35 @@ namespace Player
         public bool IsGrounded()
         {
             var bounds = coll.bounds;
-            Vector2 raycastOrigin = new Vector2(bounds.center.x, bounds.min.y);
+            float raycastDistance = _raycastDistance;
 
-            RaycastHit2D hit = Physics2D.Raycast(raycastOrigin, Vector2.down, _raycastDistance, _groundLayer);
+            int targetLayer = LayerMask.NameToLayer("Target");
+            int layerMask = _groundLayer & ~(1 << targetLayer);
 
-            Debug.DrawRay(raycastOrigin, Vector2.down * _raycastDistance, Color.red);
+            // Raycast positions: center, left, and right
+            Vector2 centerRaycastOrigin = new Vector2(bounds.center.x, bounds.min.y);
+            Vector2 leftRaycastOrigin = new Vector2(bounds.min.x, bounds.min.y);
+            Vector2 rightRaycastOrigin = new Vector2(bounds.max.x, bounds.min.y);
 
-            // Return true if the ray hit something
-            return hit.collider != null;
+            // Perform raycasts
+            RaycastHit2D centerHit = Physics2D.Raycast(centerRaycastOrigin, Vector2.down, raycastDistance, layerMask);
+            RaycastHit2D leftHit = Physics2D.Raycast(leftRaycastOrigin, Vector2.down, raycastDistance, layerMask);
+            RaycastHit2D rightHit = Physics2D.Raycast(rightRaycastOrigin, Vector2.down, raycastDistance, layerMask);
+
+            // Debug rays for visualization
+            Debug.DrawRay(centerRaycastOrigin, Vector2.down * raycastDistance, Color.red);
+            Debug.DrawRay(leftRaycastOrigin, Vector2.down * raycastDistance, Color.red);
+            Debug.DrawRay(rightRaycastOrigin, Vector2.down * raycastDistance, Color.red);
+
+            // Check if any of the rays hit a collider and ensure it's not a trigger
+            bool isGroundedCenter = centerHit.collider != null && !centerHit.collider.isTrigger;
+            bool isGroundedLeft = leftHit.collider != null && !leftHit.collider.isTrigger;
+            bool isGroundedRight = rightHit.collider != null && !rightHit.collider.isTrigger;
+
+            // Return true if any of the three raycasts hit the ground
+            return isGroundedCenter || isGroundedLeft || isGroundedRight;
         }
+
 
         private void Update()
         {
