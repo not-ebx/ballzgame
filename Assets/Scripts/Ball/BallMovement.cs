@@ -55,7 +55,7 @@ public class BallPhysics : MonoBehaviour
 
         newSpeed = currentSpeed + (speedBoost*damage);
 
-        var newHitlag = hitLag * newSpeed / 10;
+        var newHitlag = Mathf.Min(hitLag * newSpeed / 10, 3f);
         hitBox.Stop(newHitlag);
         
         rb.velocity = direction * Mathf.Min(newSpeed, maxSpeed);
