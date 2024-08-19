@@ -1,4 +1,5 @@
 using System.Collections;
+using Managers;
 using UnityEngine;
 
 namespace Player
@@ -17,7 +18,7 @@ namespace Player
             if (isHitting)
                 return;
             Time.timeScale = 0.0f;
-            StartCoroutine(Wait(duration));
+            CoroutineManager.Instance.StartManagedCoroutine(Wait(duration));
         }
 
         IEnumerator Wait(float duration)
