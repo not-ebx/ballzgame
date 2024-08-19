@@ -83,7 +83,7 @@ namespace Player.States
             _hitbox = BatHitboxManager.CreateHitBox(
                 PController.gameObject,
                 _attackDirection,
-                4 * PController.attackCharge,
+                Mathf.Pow(6f, PController.attackCharge) + 0.5f,
                 animationLength,
                 AttackType.GroundAttack
             );

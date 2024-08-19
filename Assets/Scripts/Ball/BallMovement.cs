@@ -1,4 +1,5 @@
 using System;
+using Player;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -39,8 +40,9 @@ public class BallPhysics : MonoBehaviour
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
     }
 
-    public void OnHitBall(Vector2 direction, float damage)
+    public void OnHitBall(PlayerHitbox hitBox, Vector2 direction, float damage, float hitLag)
     {
+        
         boostAudioSource.Play();
         if (direction == Vector2.zero)
         {
@@ -51,12 +53,14 @@ public class BallPhysics : MonoBehaviour
             direction = direction.normalized; 
         }
 
+        newSpeed = currentSpeed + (speedBoost*damage);
 
-        newSpeed = currentSpeed + speedBoost + (damage + 1);
-
+        var newHitlag = hitLag * newSpeed / 10;
+        hitBox.Stop(newHitlag);
+        
         rb.velocity = direction * Mathf.Min(newSpeed, maxSpeed);
 
-        Debug.Log("Hit the ball with Direction " + direction + " and Damage " + damage + ". Total Velocity is " + rb.velocity);
+        Debug.Log("Hit the ball with Direction " + direction + " and Damage " + damage + ". Total Velocity is " + rb.velocity + " And hitlag duration is " + newHitlag);
     }
 
     void OnCollisionEnter2D(Collision2D collision)

@@ -14,10 +14,10 @@ TagManager:
   - 
   - Water
   - UI
-  - Ball
+  - 
   - Player
   - Dummy
-  - 
+  - Ball
   - 
   - 
   - 
@@ -43,4 +43,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Player
+    uniqueID: 450411405
+    locked: 0
+  - name: Ball
+    uniqueID: 229996825
     locked: 0

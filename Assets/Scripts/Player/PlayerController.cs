@@ -9,14 +9,15 @@ namespace Player
 {
     public class PlayerController : MonoBehaviour
     {
-        public LayerMask groundLayer;
-        
         // Public but not serializable
         
         [NonSerialized] public Rigidbody2D rb;
-        [NonSerialized] public CapsuleCollider2D coll;
+        [NonSerialized] public BoxCollider2D coll;
         [NonSerialized] public Animator anim;
         [NonSerialized] public SpriteRenderer sprite;
+        [NonSerialized] public Camera MainCamera;
+        private LayerMask _groundLayer;
+        private float _raycastDistance = 0.1f;
         
         
         public StateMachine.StateMachine StateMachine;
@@ -43,12 +44,21 @@ namespace Player
         private void Awake()
         {
             rb = GetComponent<Rigidbody2D>();
-            coll = GetComponent<CapsuleCollider2D>();
+            coll = GetComponent<BoxCollider2D>();
             anim = GetComponent<Animator>();
             sprite = GetComponent<SpriteRenderer>();
 
             PlayerInputActions = new PlayerInputActions();
             StateContainer = new StateContainer(this);
+            
+            // Find the main camera in the scene, but make it writable
+            MainCamera = Camera.main;
+            if (MainCamera == null)
+            {
+                Debug.LogError("No main camera found in the scene");
+            }
+            
+            _groundLayer = LayerMask.GetMask("Default");
         }
 
         public void RestartRemainingJumps()
@@ -98,46 +108,16 @@ namespace Player
         
         public bool IsGrounded()
         {
-            return _isGrounded;
-        }
+            var bounds = coll.bounds;
+            Vector2 raycastOrigin = new Vector2(bounds.center.x, bounds.min.y);
 
-        private void OnCollisionExit2D(Collision2D collision)
-        {
-            _isGrounded = false;
-        }
-        
-        private void OnCollisionEnter2D(Collision2D collision)
-        {
-            CheckCollisionSide(collision);
-        }
+            RaycastHit2D hit = Physics2D.Raycast(raycastOrigin, Vector2.down, _raycastDistance, _groundLayer);
 
-        private void OnCollisionStay2D(Collision2D collision)
-        {
-            CheckCollisionSide(collision);
+            Debug.DrawRay(raycastOrigin, Vector2.down * _raycastDistance, Color.red);
+
+            // Return true if the ray hit something
+            return hit.collider != null;
         }
-
-        private void CheckCollisionSide(Collision2D collision)
-        {
-            foreach (ContactPoint2D contact in collision.contacts)
-            {
-                Vector2 contactPoint = contact.point;
-                Vector2 center = coll.bounds.center;
-
-                // Calculate the difference between the contact point and the center of the collider
-                Vector2 difference = contactPoint - center;
-
-                // Check if the collision is on the bottom side
-                if (Mathf.Abs(difference.y) > Mathf.Abs(difference.x))
-                {
-                    if (difference.y < 0)
-                    {
-                        _isGrounded = true;
-                        break; // If one contact is on the bottom, we can safely say the player is grounded
-                    }
-                }
-            }
-        }
-        
 
         private void Update()
         {
@@ -157,6 +137,15 @@ namespace Player
                     Mathf.Abs(transform.localScale.x) * -1,
                     transform.localScale.y,
                     transform.localScale.z
+                );
+            }
+
+            if (MainCamera)
+            {
+                MainCamera.transform.position = new Vector3(
+                    transform.position.x,
+                    transform.position.y,
+                    MainCamera.transform.position.z
                 );
             }
         }
