@@ -3501,7 +3501,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: f662d4e68affe0048b80cbe21fc94699, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.066
+  m_Volume: 0.036
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -3700,6 +3700,10 @@ PrefabInstance:
       propertyPath: m_GravityScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4776302588796487008, guid: 5b846ff1aab5d4dbc9a98466884e5ba4, type: 3}
+      propertyPath: m_Volume
+      value: 0.029
+      objectReference: {fileID: 0}
     - target: {fileID: 5129473148477663767, guid: 5b846ff1aab5d4dbc9a98466884e5ba4, type: 3}
       propertyPath: m_Radius
       value: 0.099124976
@@ -3767,6 +3771,34 @@ PrefabInstance:
     - target: {fileID: 7111139130401777515, guid: 5b846ff1aab5d4dbc9a98466884e5ba4, type: 3}
       propertyPath: m_Color.r
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7530462655691914123, guid: 5b846ff1aab5d4dbc9a98466884e5ba4, type: 3}
+      propertyPath: dmg
+      value: 39.0648
+      objectReference: {fileID: 0}
+    - target: {fileID: 7530462655691914123, guid: 5b846ff1aab5d4dbc9a98466884e5ba4, type: 3}
+      propertyPath: maxSpeed
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 7530462655691914123, guid: 5b846ff1aab5d4dbc9a98466884e5ba4, type: 3}
+      propertyPath: speedBoost
+      value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: 7530462655691914123, guid: 5b846ff1aab5d4dbc9a98466884e5ba4, type: 3}
+      propertyPath: currentSpeed
+      value: 44.41517
+      objectReference: {fileID: 0}
+    - target: {fileID: 7530462655691914123, guid: 5b846ff1aab5d4dbc9a98466884e5ba4, type: 3}
+      propertyPath: frictionCoefficient
+      value: 0.98
+      objectReference: {fileID: 0}
+    - target: {fileID: 7819604752643522351, guid: 5b846ff1aab5d4dbc9a98466884e5ba4, type: 3}
+      propertyPath: m_Pitch
+      value: 1.22
+      objectReference: {fileID: 0}
+    - target: {fileID: 7819604752643522351, guid: 5b846ff1aab5d4dbc9a98466884e5ba4, type: 3}
+      propertyPath: m_Volume
+      value: 0.212
       objectReference: {fileID: 0}
     - target: {fileID: 7819604752643522351, guid: 5b846ff1aab5d4dbc9a98466884e5ba4, type: 3}
       propertyPath: m_audioClip
