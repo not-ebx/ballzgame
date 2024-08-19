@@ -652,37 +652,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &145997961
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 145997962}
-  m_Layer: 0
-  m_Name: Targets
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &145997962
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 145997961}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.5999999, y: 1.76, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &172482242
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -969,6 +938,10 @@ PrefabInstance:
     - target: {fileID: 1354582155248126078, guid: 3e5af2072ed4ffd4f9befd87ceac1697, type: 3}
       propertyPath: m_Name
       value: Hard 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1354582155248126078, guid: 3e5af2072ed4ffd4f9befd87ceac1697, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4253780105743275406, guid: 3e5af2072ed4ffd4f9befd87ceac1697, type: 3}
       propertyPath: m_LocalScale.x
@@ -1419,6 +1392,10 @@ PrefabInstance:
     - target: {fileID: 1354582155248126078, guid: 3e5af2072ed4ffd4f9befd87ceac1697, type: 3}
       propertyPath: m_Name
       value: Hard 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1354582155248126078, guid: 3e5af2072ed4ffd4f9befd87ceac1697, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4253780105743275406, guid: 3e5af2072ed4ffd4f9befd87ceac1697, type: 3}
       propertyPath: m_LocalScale.x
@@ -7214,7 +7191,6 @@ SceneRoots:
   - {fileID: 1573576761}
   - {fileID: 541508091}
   - {fileID: 2114425601}
-  - {fileID: 145997962}
   - {fileID: 958182533}
   - {fileID: 1669826020}
   - {fileID: 2001086229}
