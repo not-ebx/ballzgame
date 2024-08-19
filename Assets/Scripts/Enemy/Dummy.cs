@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class Dummy : MonoBehaviour
 {
-    public float health = 200f;
+    public float health = 1200f;
+    private float maxHealth = 0f;
     public Color hitColor = Color.red;
     public float dummyValue = 50f;
     public float hitDuration = 0.2f;
@@ -18,29 +19,50 @@ public class Dummy : MonoBehaviour
     public float despawnTime = 0f;
     public GameObject explosionPrefab;
 
+    private float currentHealth;
     private SpriteRenderer spriteRenderer;
-    private Collider2D collider2D;
+    private Collider2D _c2d;
     private Color originalColor;
-    private bool isActive = true;
+    private Animator _anim;
+
+    public float yOffset = 0f;
+    public float animationDuration = 0.3f;
 
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        collider2D = GetComponent<Collider2D>();
+        _c2d = GetComponent<Collider2D>();
+        _anim = GetComponent<Animator>();
         originalColor = spriteRenderer.color;
+        maxHealth = health;
+        _anim.SetFloat("health", maxHealth);
 
         if (spawnTime > 0)
         {
             gameObject.SetActive(false);
             Invoke("ActivateDummy", spawnTime);
         }
+
+        StartCoroutine(AnimatePosition());
     }
 
-
-   private void ActivateDummy()
+    private void ActivateDummy()
     {
         gameObject.SetActive(true);
-        isActive = true;
+    }
+
+    private IEnumerator AnimatePosition()
+    {
+        Vector3 originalPosition = transform.position;
+
+        while (true)
+        {
+            transform.position = new Vector3(originalPosition.x, originalPosition.y + yOffset, originalPosition.z);
+            yield return new WaitForSeconds(animationDuration);
+
+            transform.position = originalPosition;
+            yield return new WaitForSeconds(animationDuration);
+        }
     }
 
     void Update()
@@ -56,12 +78,13 @@ public class Dummy : MonoBehaviour
         float finalDamage = dmg;
         health -= finalDamage;
 
+        _anim.SetFloat("health", health);
+
         ShowDamageText(finalDamage);
 
         if (health <= 0)
         {
             StartCoroutine(HandleInvisibility());
-            
         }
         else
         {
@@ -79,18 +102,17 @@ public class Dummy : MonoBehaviour
 
     private IEnumerator HandleInvisibility()
     {
-  
         destroySound.Play();
         ShowExplosion();
 
         spriteRenderer.enabled = false;
-        collider2D.enabled = false;
-
+        _c2d.enabled = false;
+        health = maxHealth;
+        _anim.SetFloat("health", maxHealth);
         yield return new WaitForSeconds(respawnTime);
 
         spriteRenderer.enabled = true;
-        collider2D.enabled = true;
-        health = 200f;
+        _c2d.enabled = true;
     }
 
     private void ShowDamageText(float dmg)
