@@ -1,4 +1,5 @@
 using System;
+using Managers;
 using Player;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -57,6 +58,11 @@ public class BallPhysics : MonoBehaviour
 
         var newHitlag = Mathf.Min(hitLag * newSpeed / 10, 2.2f);
         hitBox.Stop(newHitlag);
+        var cameraManager = FindObjectOfType<CameraManager>();
+        if (cameraManager != null)
+        {
+            CoroutineManager.Instance.StartManagedCoroutine(cameraManager.Shake(newHitlag, 0.1f, (1 + newHitlag) * 10f));
+        }
         
         rb.velocity = direction * Mathf.Min(newSpeed, maxSpeed);
 

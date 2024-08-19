@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Managers;
 using Player.States;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -16,6 +17,7 @@ namespace Player
         [NonSerialized] public Animator anim;
         [NonSerialized] public SpriteRenderer sprite;
         [NonSerialized] public Camera MainCamera;
+        [NonSerialized] public CameraManager CameraManager;
         private LayerMask _groundLayer;
         private float _raycastDistance = 0.1f;
         
@@ -50,6 +52,7 @@ namespace Player
             coll = GetComponent<BoxCollider2D>();
             anim = GetComponent<Animator>();
             sprite = GetComponent<SpriteRenderer>();
+            CameraManager = gameObject.AddComponent<CameraManager>();
 
             PlayerInputActions = new PlayerInputActions();
             StateContainer = new StateContainer(this);
