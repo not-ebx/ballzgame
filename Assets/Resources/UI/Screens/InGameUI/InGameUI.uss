@@ -7,4 +7,8 @@
 .top-bar {
     flex-direction: row;
     justify-content: space-between;
+    -unity-font: resource('Fonts/HomeVideo-Regular');
+    -unity-font-definition: initial;
+    -unity-font-style: bold;
+    color: rgb(255, 255, 255);
 }

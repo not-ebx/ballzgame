@@ -8,12 +8,13 @@ namespace Player
         public Vector2 hitBoxDirection;
         public float damage;
         public float hitLag = 0.0f;
-        private bool _isHitting = false;
+        public bool isHitting = false;
+        private bool _isUsed = false;
 
         // This method makes the world stop for a duration. Used for feedback when hitting the ball.
         public void Stop(float duration)
         {
-            if (_isHitting)
+            if (isHitting)
                 return;
             Time.timeScale = 0.0f;
             StartCoroutine(Wait(duration));
@@ -21,17 +22,18 @@ namespace Player
 
         IEnumerator Wait(float duration)
         {
-            _isHitting = true;
+            isHitting = true;
             yield return new WaitForSecondsRealtime(duration);
             Time.timeScale = 1.0f;
-            _isHitting = false;
+            isHitting = false;
             Destroy(this);
         }
         
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.CompareTag("Ball"))
+            if (other.CompareTag("Ball") && !_isUsed)
             {
+                _isUsed = true;
                 var ball = other.GetComponent<BallPhysics>();
                 ball.OnHitBall(this, hitBoxDirection, damage, hitLag);
             }

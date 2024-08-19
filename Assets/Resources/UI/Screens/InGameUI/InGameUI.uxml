@@ -1,21 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
-<engine:UXML
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:engine="UnityEngine.UIElements"
-    xmlns:editor="UnityEditor.UIElements"
-    xsi:noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd"
->
-    <engine:Style src="InGameUI.uss"/>
-    <engine:VisualElement class="whole-screen-element">
-        <engine:VisualElement class="top-bar">
-            <engine:Label name="score" text="Score:"/>
-        </engine:VisualElement>
-        <engine:VisualElement class="top-bar">
-            <engine:Label name="current-state" text="CurrentState"/>
-            <engine:Label name="current-velocity" text="CurrentVelocity"/>
-            <engine:Label name="current-input" text="CurrentInputs" />
-            <engine:Label name="current-charge" text="CurrentCharge" />
-        </engine:VisualElement>
-    </engine:VisualElement>
-    
-</engine:UXML>
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Resources/UI/Screens/InGameUI/InGameUI.uss?fileID=7433441132597879392&amp;guid=cad52026bd6ac4c36be9104845cc8957&amp;type=3#InGameUI" />
+    <ui:VisualElement class="whole-screen-element">
+        <ui:VisualElement class="top-bar">
+            <ui:Label name="score" text="Score:" />
+        </ui:VisualElement>
+        <ui:VisualElement class="top-bar">
+            <ui:Label name="current-state" text="CurrentState" />
+            <ui:Label name="current-velocity" text="CurrentVelocity" />
+            <ui:Label name="current-input" text="CurrentInputs" />
+            <ui:Label name="current-charge" text="CurrentCharge" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
