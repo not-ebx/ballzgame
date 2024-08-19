@@ -10619,6 +10619,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5b846ff1aab5d4dbc9a98466884e5ba4, type: 3}
+--- !u!1 &309149441 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1716244277819217759, guid: 5b846ff1aab5d4dbc9a98466884e5ba4, type: 3}
+  m_PrefabInstance: {fileID: 309149440}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1254892048
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10839,11 +10844,6 @@ TilemapCollider2D:
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
   m_UseDelaunayMesh: 0
---- !u!1 &1630118104 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1716244277819217759, guid: 5b846ff1aab5d4dbc9a98466884e5ba4, type: 3}
-  m_PrefabInstance: {fileID: 309149440}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1776705460 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1191409815163750133, guid: 9892fd3556b0748fca7c3c3b3a47cdb1, type: 3}
@@ -10888,7 +10888,7 @@ MonoBehaviour:
     _prefab: Assets/Resources/TileSet/tilemap_main.prefab
   - _gameObject: {fileID: 1776705460}
     _prefab: Assets/Resources/Characters/Player.prefab
-  - _gameObject: {fileID: 1630118104}
+  - _gameObject: {fileID: 309149441}
     _prefab: Assets/Resources/GameObjects/Ball.prefab
 --- !u!4 &2059883893
 Transform:

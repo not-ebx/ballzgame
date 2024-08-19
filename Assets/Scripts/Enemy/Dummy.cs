@@ -1,4 +1,5 @@
 using System.Collections;
+using Player;
 using UnityEngine;
 
 public class Dummy : MonoBehaviour
@@ -84,6 +85,12 @@ public class Dummy : MonoBehaviour
 
         if (health <= 0)
         {
+            var player = GameObject.Find("Player");
+            if (player && player.GetComponent<PlayerController>())
+            {
+                var playerController = player.GetComponent<PlayerController>();
+                playerController.Score += (int)dummyValue;
+            }
             StartCoroutine(HandleInvisibility());
         }
         else

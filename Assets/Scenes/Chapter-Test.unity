@@ -122,6 +122,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &7074782 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1716244277819217759, guid: 5b846ff1aab5d4dbc9a98466884e5ba4, type: 3}
+  m_PrefabInstance: {fileID: 2114425601}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &31938467
 GameObject:
   m_ObjectHideFlags: 0
@@ -883,11 +888,6 @@ Transform:
   - {fileID: 111063835}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &424449354 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1482381183504727214, guid: 5b846ff1aab5d4dbc9a98466884e5ba4, type: 3}
-  m_PrefabInstance: {fileID: 2114425601}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &489021545
 GameObject:
   m_ObjectHideFlags: 0
@@ -986,7 +986,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _scenePrefabInstances:
-  - _gameObject: {fileID: 424449354}
+  - _gameObject: {fileID: 7074782}
     _prefab: Assets/Resources/GameObjects/Ball.prefab
   - _gameObject: {fileID: 1717288328}
     _prefab: Assets/Resources/Prefabs/Target.prefab
@@ -1705,9 +1705,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4be7a44d1abf4b67a277c70d181b155f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 128
   moveSpeed: 8
   remainingJumps: 1
   remainingAerial: 1
@@ -3771,6 +3768,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7819604752643522351, guid: 5b846ff1aab5d4dbc9a98466884e5ba4, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: c3215efbed768bc42a101b39e87dc704, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -7,6 +7,8 @@ namespace UI.Behaviours
 {
     public class InGameUIBehaviour : MonoBehaviour
     {
+        private Label _scoreLabel;
+        
         private Label _currentStateLabel;
         private Label _currentInputLabel;
         private Label _currentVelocityLabel;
@@ -20,6 +22,7 @@ namespace UI.Behaviours
             visualTree.CloneTree(this.GetComponent<UIDocument>().rootVisualElement);
             
             // Get references to UI elements
+            _scoreLabel = this.GetComponent<UIDocument>().rootVisualElement.Q<Label>("score");
             _currentStateLabel = this.GetComponent<UIDocument>().rootVisualElement.Q<Label>("current-state");
             _currentInputLabel = this.GetComponent<UIDocument>().rootVisualElement.Q<Label>("current-input");
             _currentVelocityLabel = this.GetComponent<UIDocument>().rootVisualElement.Q<Label>("current-velocity");
@@ -52,6 +55,9 @@ namespace UI.Behaviours
             SetCurrentInputs();
             SetCurrentVelocity();
             SetCurrentAttackCharge();
+            
+            // Set the score
+            _scoreLabel.text = "Score: " + player.Score;
         }
     }
 }

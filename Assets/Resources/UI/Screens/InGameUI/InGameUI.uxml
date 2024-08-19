@@ -8,6 +8,9 @@
     <engine:Style src="InGameUI.uss"/>
     <engine:VisualElement class="whole-screen-element">
         <engine:VisualElement class="top-bar">
+            <engine:Label name="score" text="Score:"/>
+        </engine:VisualElement>
+        <engine:VisualElement class="top-bar">
             <engine:Label name="current-state" text="CurrentState"/>
             <engine:Label name="current-velocity" text="CurrentVelocity"/>
             <engine:Label name="current-input" text="CurrentInputs" />

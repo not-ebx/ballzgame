@@ -39,6 +39,9 @@ namespace Player
         
         // Attack Stuff
         public float attackCharge = 0.0f;
+        
+        // Score
+        [NonSerialized] public int Score = 0;
 
 
         private void Awake()
@@ -140,7 +143,7 @@ namespace Player
                 );
             }
 
-            if (MainCamera)
+            if (false && MainCamera)
             {
                 MainCamera.transform.position = new Vector3(
                     transform.position.x,
