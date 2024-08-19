@@ -7,6 +7,7 @@ public class Dummy : MonoBehaviour
     public float health = 1200f;
     private float maxHealth = 0f;
     public Color hitColor = Color.red;
+    public Color reflectColor = Color.blue;
     public float dummyValue = 50f;
     public float hitDuration = 0.2f;
     public AudioSource hitSound;
@@ -23,6 +24,7 @@ public class Dummy : MonoBehaviour
     private float currentHealth;
     private SpriteRenderer spriteRenderer;
     private Collider2D _c2d;
+    private EdgeCollider2D _cedge;
     private Color originalColor;
     private Animator _anim;
 
@@ -33,6 +35,7 @@ public class Dummy : MonoBehaviour
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         _c2d = GetComponent<Collider2D>();
+        _cedge = GetComponent<EdgeCollider2D>();
         _anim = GetComponent<Animator>();
         originalColor = spriteRenderer.color;
         maxHealth = health;
@@ -96,17 +99,21 @@ public class Dummy : MonoBehaviour
         else
         {
             hitSound.Play();
-            StartCoroutine(ChangeColor(hitDuration));
+            StartCoroutine(ChangeColor(hitDuration, hitColor));
         }
     }
 
-    private IEnumerator ChangeColor(float duration)
+    public void HandleReflection()
     {
-        spriteRenderer.color = hitColor;
+        StartCoroutine(ChangeColor(hitDuration, reflectColor));
+    }
+
+    private IEnumerator ChangeColor(float duration, Color newColor)
+    {
+        spriteRenderer.color = newColor;
         yield return new WaitForSeconds(duration);
         spriteRenderer.color = originalColor;
     }
-
     private IEnumerator HandleInvisibility()
     {
         destroySound.Play();
@@ -114,12 +121,20 @@ public class Dummy : MonoBehaviour
 
         spriteRenderer.enabled = false;
         _c2d.enabled = false;
+        if (_cedge != null)
+        {
+            _cedge.enabled = false;
+        }
         health = maxHealth;
         _anim.SetFloat("health", maxHealth);
         yield return new WaitForSeconds(respawnTime);
 
         spriteRenderer.enabled = true;
         _c2d.enabled = true;
+        if (_cedge != null)
+        {
+            _cedge.enabled = true;
+        }
     }
 
     private void ShowDamageText(float dmg)

@@ -8,8 +8,18 @@ namespace Player.States
         private bool _isCharging;
         private Vector2 _attackDirection;
 
+        private AudioClip _weakSwingSound;
+
+        private AudioSource _audioSource;
+
+        // Volume and pitch settings
+        public float weakSwingVolume = 0.1f;
+        public float weakSwingPitch = 1.1f;
+
         public PlayerAirAttackState(PlayerController pController) : base(pController)
         {
+            _weakSwingSound = Resources.Load<AudioClip>("weak");
+            _audioSource = PController.gameObject.AddComponent<AudioSource>();
         }
 
         public override void Enter()
@@ -18,6 +28,7 @@ namespace Player.States
             _attackDirection = PController.PlayerInputActions.Player.Move.ReadValue<Vector2>();
 
             PController.anim.Play("JumpAttack");
+            PlaySwingSound(_weakSwingSound, weakSwingVolume, weakSwingPitch);
             var animationLength = PController.GetAnimationLength();
             Debug.Log("JumpAttack animation length: " + animationLength);
             //CreateHitBox();
@@ -61,6 +72,17 @@ namespace Player.States
         {
             base.Exit();
             Object.Destroy(_hitbox);
+        }
+
+        public void PlaySwingSound(AudioClip clip, float volume, float pitch)
+        {
+            if (clip != null)
+            {
+                _audioSource.clip = clip;
+                _audioSource.volume = volume;
+                _audioSource.pitch = pitch;
+                _audioSource.Play();
+            }
         }
 
     }

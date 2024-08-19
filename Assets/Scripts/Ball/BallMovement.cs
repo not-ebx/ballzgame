@@ -16,6 +16,7 @@ public class BallPhysics : MonoBehaviour
     private float limitedSpeed;
     public AudioSource bounceSound;
     public AudioSource boostAudioSource;
+    public AudioSource reflectionSound;
     public float speedBoost = 16f;
 
     private Animator _anim;
@@ -43,7 +44,6 @@ public class BallPhysics : MonoBehaviour
 
     public void OnHitBall(PlayerHitbox hitBox, Vector2 direction, float damage, float hitLag)
     {
-        
         boostAudioSource.Play();
         if (direction == Vector2.zero)
         {
@@ -54,7 +54,7 @@ public class BallPhysics : MonoBehaviour
             direction = direction.normalized; 
         }
 
-        newSpeed = currentSpeed + (speedBoost*damage);
+        newSpeed = currentSpeed + (speedBoost * damage);
 
         var newHitlag = Mathf.Min(hitLag * newSpeed / 10, 2.2f);
         hitBox.Stop(newHitlag);
@@ -70,6 +70,19 @@ public class BallPhysics : MonoBehaviour
     }
 
     void OnCollisionEnter2D(Collision2D collision)
+    {
+
+        if (collision.collider is BoxCollider2D)
+        {
+            HandleBoxColliderCollision(collision);
+        }
+        else if (collision.collider is EdgeCollider2D)
+        {
+            HandleEdgeColliderCollision(collision);
+        }
+    }
+
+    private void HandleBoxColliderCollision(Collision2D collision)
     {
         bounceSound.Play();
 
@@ -87,4 +100,22 @@ public class BallPhysics : MonoBehaviour
         }
     }
 
+    private void HandleEdgeColliderCollision(Collision2D collision)
+    {
+        reflectionSound.Play();
+
+        Vector2 direction = rb.velocity.normalized;
+
+        rb.velocity = direction * (rb.velocity.magnitude * frictionCoefficient);
+
+        Dummy dummy = collision.gameObject.GetComponent<Dummy>();
+        if (dummy != null)
+        {
+            dummy.HandleReflection();
+        }
+
+
+
+    }
+    
 }
