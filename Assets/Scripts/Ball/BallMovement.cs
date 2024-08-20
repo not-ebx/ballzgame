@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Managers;
 using Player;
 using UnityEngine;
@@ -20,6 +21,14 @@ public class BallPhysics : MonoBehaviour
     public float speedBoost = 16f;
 
     private Animator _anim;
+
+    private GameObject _impactParticlePrefab;
+    private GameObject _instancedParticle;
+
+    private void Awake()
+    {
+        _impactParticlePrefab = Resources.Load<GameObject>("Particles/Impact/ImpactParticle");
+    }
 
     void Start()
     {
@@ -45,6 +54,9 @@ public class BallPhysics : MonoBehaviour
     public void OnHitBall(PlayerHitbox hitBox, Vector2 direction, float damage, float hitLag)
     {
         boostAudioSource.Play();
+        
+        CoroutineManager.Instance.StartManagedCoroutine(GenerateImpactThenDestroy());
+        
         if (direction == Vector2.zero)
         {
             direction = -rb.velocity.normalized;
@@ -113,9 +125,29 @@ public class BallPhysics : MonoBehaviour
         {
             dummy.HandleReflection();
         }
-
-
-
     }
-    
+
+    public IEnumerator GenerateImpactThenDestroy()
+    {
+        if (_impactParticlePrefab == null) yield break;
+        
+        var instancedParticle = Instantiate(_impactParticlePrefab, transform.position, Quaternion.identity);
+        instancedParticle.transform.localScale = new Vector3(
+            2,2,1
+        );
+        var animator = instancedParticle.GetComponent<Animator>();
+        if (animator != null)
+        {
+            var animatorStateInfo = animator.GetCurrentAnimatorStateInfo(0);
+            var animationDuration = animatorStateInfo.length;
+            yield return new WaitForSeconds(animationDuration);
+        }
+        else
+        {
+            yield return new WaitForSeconds(1.0f);
+        }
+        
+        Destroy(instancedParticle);
+        
+    }
 }

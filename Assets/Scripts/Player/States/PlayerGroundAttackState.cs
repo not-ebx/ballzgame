@@ -21,6 +21,10 @@ namespace Player.States
         public float strongSwingVolume = 0.1f;
         public float weakSwingPitch = 1.1f;
         public float strongSwingPitch = 1.1f;
+        
+        // Charge particle prefab
+        private GameObject _chargeParticlePrefab = Resources.Load<GameObject>("Particles/Charge/ChargeParticle");
+        private GameObject _instancedParticle;
 
         public PlayerGroundAttackState(PlayerController pController) : base(pController)
         {
@@ -48,6 +52,11 @@ namespace Player.States
         {
             base.Update();
             PController.rb.velocity = new Vector2(0, 0);
+            if (!_isCharging && _instancedParticle != null)
+            {
+                Object.Destroy(_instancedParticle);
+            }
+            
             if (!_isCharging && IsAttackAnimationFinished())
             {
                 PController.sprite.color = Color.white;
@@ -59,7 +68,10 @@ namespace Player.States
                 _attackDirection = PController.PlayerInputActions.Player.Move.ReadValue<Vector2>();
                 if (IsChargeAnimationFinished() && PController.attackCharge > 0)
                 {
-                    PController.sprite.color = Color.Lerp(Color.white, Color.yellow, PController.attackCharge);
+                    if (_instancedParticle == null)
+                    {
+                        _instancedParticle = Object.Instantiate(_chargeParticlePrefab, PController.transform);
+                    }
                 }
             }
         }
@@ -108,6 +120,7 @@ namespace Player.States
         {
             base.Exit();
             Object.Destroy(_hitbox);
+            Object.Destroy(_instancedParticle);
             PController.attackCharge = 0;
             PController.PlayerInputActions.Player.Attack.performed -= OnGroundAttack;
             PController.PlayerInputActions.Player.Attack.canceled -= OnGroundAttackCanceled;
