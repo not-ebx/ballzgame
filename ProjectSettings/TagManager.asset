@@ -7,6 +7,8 @@ TagManager:
   - Ball
   - Play
   - Enem
+  - Obstacle
+  - Spiked
   layers:
   - Default
   - TransparentFX
