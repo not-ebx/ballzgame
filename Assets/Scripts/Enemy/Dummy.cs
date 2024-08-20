@@ -107,6 +107,7 @@ public class Dummy : MonoBehaviour
             {
                 var playerController = player.GetComponent<PlayerController>();
                 playerController.Score += (int)dummyValue;
+                GameData.FinalScore += (int)dummyValue;
             }
             StartCoroutine(HandleInvisibility());
         }
