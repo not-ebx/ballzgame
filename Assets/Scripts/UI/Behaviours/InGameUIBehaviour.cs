@@ -23,10 +23,12 @@ namespace UI.Behaviours
             
             // Get references to UI elements
             _scoreLabel = this.GetComponent<UIDocument>().rootVisualElement.Q<Label>("score");
+            /*
             _currentStateLabel = this.GetComponent<UIDocument>().rootVisualElement.Q<Label>("current-state");
             _currentInputLabel = this.GetComponent<UIDocument>().rootVisualElement.Q<Label>("current-input");
             _currentVelocityLabel = this.GetComponent<UIDocument>().rootVisualElement.Q<Label>("current-velocity");
             _currentChargeLabel = this.GetComponent<UIDocument>().rootVisualElement.Q<Label>("current-charge");
+            */
         }
 
         public void SetCurrentState(string stateName)
@@ -51,10 +53,12 @@ namespace UI.Behaviours
 
         private void Update()
         {
+            /*
             SetCurrentState(player.StateMachine.GetCurrentStateName());
             SetCurrentInputs();
             SetCurrentVelocity();
             SetCurrentAttackCharge();
+            */
             
             // Set the score
             _scoreLabel.text = "Score: " + player.Score;

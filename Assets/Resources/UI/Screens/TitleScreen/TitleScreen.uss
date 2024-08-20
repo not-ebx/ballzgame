@@ -3,6 +3,7 @@
     -unity-font-style: bold;
     align-self: center;
     margin-top: 50px;
+    color: white;
     margin-bottom: 100px;
 }
 
@@ -12,6 +13,7 @@
 
 .title-screen-button {
     flex: 1;
+    color: white;
     font-size: 20px;
     margin: 5px 5px;
     background-color: rgba(0, 0, 0, 0);

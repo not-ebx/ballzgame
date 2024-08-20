@@ -4,11 +4,13 @@
         <ui:VisualElement class="top-bar">
             <ui:Label name="score" text="Score:" />
         </ui:VisualElement>
+        <!--
         <ui:VisualElement class="top-bar">
             <ui:Label name="current-state" text="CurrentState" />
             <ui:Label name="current-velocity" text="CurrentVelocity" />
             <ui:Label name="current-input" text="CurrentInputs" />
             <ui:Label name="current-charge" text="CurrentCharge" />
         </ui:VisualElement>
+        -->
     </ui:VisualElement>
 </ui:UXML>
