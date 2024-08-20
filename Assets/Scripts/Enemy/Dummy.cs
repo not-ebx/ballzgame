@@ -27,7 +27,8 @@ public class Dummy : MonoBehaviour
     private EdgeCollider2D _cedge;
     private Color originalColor;
     private Animator _anim;
-
+    private Vector3 originalPosition;
+    private bool isRespawning = false;
     public float yOffset = 0f;
     public float animationDuration = 0.3f;
 
@@ -40,14 +41,17 @@ public class Dummy : MonoBehaviour
         originalColor = spriteRenderer.color;
         maxHealth = health;
         _anim.SetFloat("health", maxHealth);
+        _anim.SetBool("isRespawning", isRespawning);
+        originalPosition = transform.position;
 
         if (spawnTime > 0)
         {
             gameObject.SetActive(false);
             Invoke("ActivateDummy", spawnTime);
         }
-
-        StartCoroutine(AnimatePosition());
+        if (yOffset > 0){
+            StartCoroutine(AnimatePosition());
+        }
     }
 
     private void ActivateDummy()
@@ -114,35 +118,45 @@ public class Dummy : MonoBehaviour
         yield return new WaitForSeconds(duration);
         spriteRenderer.color = originalColor;
     }
+
     private IEnumerator HandleInvisibility()
     {
+        Debug.Log("HandleInvisibility started");
         destroySound.Play();
         ShowExplosion();
 
         spriteRenderer.enabled = false;
         _c2d.enabled = false;
-
-        // Desactivar todos los EdgeCollider2D
-        EdgeCollider2D[] edgeColliders = GetComponents<EdgeCollider2D>();
-        foreach (EdgeCollider2D edgeCollider in edgeColliders)
+        Collider2D[] allColliders = GetComponentsInChildren<Collider2D>();
+        foreach (Collider2D collider in allColliders)
         {
-            edgeCollider.enabled = false;
+            collider.enabled = false;
         }
-
+        isRespawning = true;
+        _anim.SetBool("isRespawning", isRespawning);
         health = maxHealth;
         _anim.SetFloat("health", maxHealth);
+        Debug.Log("Waiting for respawn...");
         yield return new WaitForSeconds(respawnTime);
+        Debug.Log("Respawn time finished");
+
+        transform.position = originalPosition;
 
         spriteRenderer.enabled = true;
         _c2d.enabled = true;
+        isRespawning = false;
+        _anim.SetBool("isRespawning", isRespawning);
 
-        // Reactivar todos los EdgeCollider2D
-        foreach (EdgeCollider2D edgeCollider in edgeColliders)
+        foreach (Collider2D collider in allColliders)
         {
-            edgeCollider.enabled = true;
+            collider.enabled = true;
         }
-    }
 
+        yield return new WaitForEndOfFrame();
+        transform.position = originalPosition;
+
+        Debug.Log("Dummy respawned at: " + transform.position);
+    }
 
     private void ShowDamageText(float dmg)
     {

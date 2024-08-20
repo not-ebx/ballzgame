@@ -8,6 +8,7 @@ namespace Player.States
         public PlayerAirAttackState PlayerAirAttackState;
         public PlayerJumpState PlayerJumpState;
         public PlayerLandingState PlayerLandingState;
+        public PlayerState PlayerStunnedState { get; private set; }
 
         public StateContainer(PlayerController playerController)
         {
@@ -17,6 +18,7 @@ namespace Player.States
             PlayerAirAttackState = new PlayerAirAttackState(playerController);
             PlayerJumpState = new PlayerJumpState(playerController);
             PlayerLandingState = new PlayerLandingState(playerController);
+            PlayerStunnedState = new PlayerStunnedState(playerController);
         }
     }
 }
