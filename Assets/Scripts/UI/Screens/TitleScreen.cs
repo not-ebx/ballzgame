@@ -33,7 +33,7 @@ namespace UI.Screens
                 return;
             }
 
-            //_arcadeMode.clicked += () => StartCoroutine(LoadSceneWithDelay("ArcadeModeScene"));
+            _arcadeMode.clicked += () => StartCoroutine(LoadSceneWithDelay("ArcadeModeScene"));
             _freeMode.clicked += () => StartCoroutine(LoadSceneWithDelay("Chapter-Test"));
         }
         

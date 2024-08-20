@@ -1,0 +1,19 @@
+.whole-screen-element {
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    justify-content: flex-end;
+}
+
+.top-bar {
+    font-size: 24px;
+    flex-direction: row;
+    justify-content: flex-start;
+    -unity-font: resource('Fonts/HomeVideo-Regular');
+    -unity-font-definition: initial;
+    -unity-font-style: bold;
+    color: rgb(255, 255, 255);
+    -unity-text-align: upper-left;
+    padding: 15px;
+    padding-left: 25px;
+}

@@ -1,0 +1,12 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Resources/UI/Screens/InGameUI/InGameUI.uss?fileID=7433441132597879392&amp;guid=cad52026bd6ac4c36be9104845cc8957&amp;type=3#InGameUI" />
+    <ui:VisualElement class="whole-screen-element" style="flex-direction: row-reverse; justify-content: space-around; align-items: flex-start;">
+        <ui:VisualElement class="top-bar">
+            <ui:VisualElement class="arcade-mode-screen">
+                <ui:Label name="timer-label" text="Time: 02:00" class="timer" style="-unity-font: resource(&apos;Fonts/HomeVideo-Regular&apos;); font-size: 24px; color: rgb(255, 255, 255); -unity-font-style: bold; -unity-text-align: lower-left; white-space: nowrap; text-overflow: clip;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
+
+

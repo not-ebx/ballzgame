@@ -20,6 +20,7 @@ public class Dummy : MonoBehaviour
     public float spawnTime = 0f;
     public float despawnTime = 0f;
     public GameObject explosionPrefab;
+    public string spawnAnimationName = "SpawnAnimation"; // Nombre de la animación de spawn desde el editor
 
     private float currentHealth;
     private SpriteRenderer spriteRenderer;
@@ -31,6 +32,7 @@ public class Dummy : MonoBehaviour
     private bool isRespawning = false;
     public float yOffset = 0f;
     public float animationDuration = 0.3f;
+    private bool isSpawning;
 
     void Start()
     {
@@ -47,16 +49,19 @@ public class Dummy : MonoBehaviour
         if (spawnTime > 0)
         {
             gameObject.SetActive(false);
+            isSpawning = true;
             Invoke("ActivateDummy", spawnTime);
-        }
-        if (yOffset > 0){
-            StartCoroutine(AnimatePosition());
         }
     }
 
     private void ActivateDummy()
     {
+        isRespawning = true;
+        _anim.SetBool("isRespawning", isRespawning);
         gameObject.SetActive(true);
+        maxHealth = health;
+        _anim.SetFloat("health", maxHealth);
+        _anim.Play(spawnAnimationName);
     }
 
     private IEnumerator AnimatePosition()
@@ -78,6 +83,11 @@ public class Dummy : MonoBehaviour
         if (despawnTime > 0)
         {
             Destroy(gameObject, despawnTime);
+        }
+        if (yOffset > 0 && gameObject.activeInHierarchy && isSpawning)
+        {
+            isSpawning = false;
+            StartCoroutine(AnimatePosition());
         }
     }
 
@@ -176,7 +186,7 @@ public class Dummy : MonoBehaviour
     {
         if (explosionPrefab != null)
         {
-            Vector3 spawnPosition  =  transform.position;
+            Vector3 spawnPosition = transform.position;
             GameObject explosion = Instantiate(explosionPrefab, spawnPosition, Quaternion.identity);
         }
     }

@@ -18,6 +18,7 @@ public class BallPhysics : MonoBehaviour
     public AudioSource bounceSound;
     public AudioSource boostAudioSource;
     public AudioSource reflectionSound;
+    public AudioSource thunderSound;
     public float speedBoost = 16f;
 
     private Animator _anim;
@@ -35,8 +36,7 @@ public class BallPhysics : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         _anim = GetComponent<Animator>();
 
-        Vector2 initialDirection = new Vector2(Random.Range(-2f, 2f), Random.Range(-2f, 2f)).normalized;
-        rb.velocity = initialDirection * initialSpeed;
+        rb.velocity = new Vector2(Random.Range(-0.1f, 0.1f), Random.Range(-0.1f, 0.1f)).normalized * initialSpeed;
     }
 
     void Update()
@@ -69,11 +69,15 @@ public class BallPhysics : MonoBehaviour
         newSpeed = currentSpeed + (speedBoost * damage);
 
         var newHitlag = Mathf.Min(hitLag * newSpeed / 10, 2.2f);
+        if (newHitlag >= 0.8f)
+        {
+            thunderSound.Play();
+        }
         hitBox.Stop(newHitlag);
         var cameraManager = FindObjectOfType<CameraManager>();
         if (cameraManager != null)
         {
-            CoroutineManager.Instance.StartManagedCoroutine(cameraManager.Shake(newHitlag, 0.1f, (1 + newHitlag) * 10f));
+            CoroutineManager.Instance.StartManagedCoroutine(cameraManager.Shake(newHitlag, 0.1f, (1 + newHitlag) * 12f));
         }
         
         rb.velocity = direction * Mathf.Min(newSpeed, maxSpeed);

@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Resources/UI/Screens/TimerUI/TimerUI.uss?fileID=7433441132597879392&amp;guid=6b954c8bf285bef4db6513067ee48d79&amp;type=3#TimerUI" />
+    <ui:VisualElement class="whole-screen-element" style="flex-direction: column; justify-content: center; align-items: auto; align-self: auto; height: 694px; flex-wrap: nowrap;">
+        <ui:VisualElement name="VisualElement" class="top-bar" style="height: 531px; padding-left: 15px; -unity-text-align: lower-center; align-self: center; align-items: auto; justify-content: center; flex-direction: column; flex-wrap: nowrap;">
+            <ui:Label name="timer" text="02:00" parse-escape-sequences="false" class="timer-bar" style="-unity-text-align: lower-left; top: auto; flex-direction: column; align-items: auto; justify-content: space-between; align-self: auto; padding-top: 4px; color: rgb(250, 250, 250); height: 676px; flex-shrink: 0; flex-wrap: nowrap; width: -3px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

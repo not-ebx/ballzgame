@@ -1,16 +1,8 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Resources/UI/Screens/InGameUI/InGameUI.uss?fileID=7433441132597879392&amp;guid=cad52026bd6ac4c36be9104845cc8957&amp;type=3#InGameUI" />
-    <ui:VisualElement class="whole-screen-element">
-        <ui:VisualElement class="top-bar">
-            <ui:Label name="score" text="Score:" />
+    <ui:VisualElement class="whole-screen-element" style="flex-direction: row-reverse; justify-content: space-around; align-items: stretch; align-self: auto;">
+        <ui:VisualElement class="top-bar" style="padding-top: 0;">
+            <ui:Label name="score" text="Score:" style="font-size: 24px; height: 32px; width: 127px; align-items: auto; white-space: nowrap; justify-content: flex-start; align-self: auto; padding-top: 0; padding-bottom: 5px; margin-bottom: 4px; -unity-text-align: upper-left; -unity-text-outline-width: 0; color: rgb(245, 245, 245); padding-right: 4px; margin-right: 10px; border-top-width: 1px;" />
         </ui:VisualElement>
-        <!--
-        <ui:VisualElement class="top-bar">
-            <ui:Label name="current-state" text="CurrentState" />
-            <ui:Label name="current-velocity" text="CurrentVelocity" />
-            <ui:Label name="current-input" text="CurrentInputs" />
-            <ui:Label name="current-charge" text="CurrentCharge" />
-        </ui:VisualElement>
-        -->
     </ui:VisualElement>
 </ui:UXML>

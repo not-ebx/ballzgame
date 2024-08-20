@@ -11,25 +11,28 @@ namespace Player.States
         private float _attackChargeTime;
         private Vector2 _attackDirection;
 
-        private AudioClip _weakSwingSound;
         private AudioClip _strongSwingSound;
-
+        private AudioClip _chargeSound;
         private AudioSource _audioSource;
 
         // Volume and pitch settings
-        public float weakSwingVolume = 0.1f;
+        public float chargeVolume = 0.1f;
         public float strongSwingVolume = 0.1f;
-        public float weakSwingPitch = 1.1f;
+        public float chargePitch = 0.75f;
         public float strongSwingPitch = 1.1f;
         
         // Charge particle prefab
         private GameObject _chargeParticlePrefab = Resources.Load<GameObject>("Particles/Charge/ChargeParticle");
         private GameObject _instancedParticle;
 
+        // Nueva variable para controlar el sonido de carga
+        private bool _isChargeSoundPlaying = false;
+        private float _chargeThreshold = 0.2f; // Ajusta este valor según sea necesario
+
         public PlayerGroundAttackState(PlayerController pController) : base(pController)
         {
-            _weakSwingSound = Resources.Load<AudioClip>("weak");
             _strongSwingSound = Resources.Load<AudioClip>("strong");
+            _chargeSound = Resources.Load<AudioClip>("charging");
             _audioSource = PController.gameObject.AddComponent<AudioSource>();
         }
 
@@ -39,7 +42,6 @@ namespace Player.States
             _attackChargeTime = 0f;
             PController.PlayerInputActions.Player.Attack.performed += OnGroundAttack;
             PController.PlayerInputActions.Player.Attack.canceled += OnGroundAttackCanceled;
-
 
             _attackChargeTime = Time.time;
             _isCharging = true;
@@ -52,19 +54,19 @@ namespace Player.States
         {
             base.Update();
             PController.rb.velocity = new Vector2(0, 0);
-            if (!_isCharging && _instancedParticle != null)
-            {
-                Object.Destroy(_instancedParticle);
-            }
             
-            if (!_isCharging && IsAttackAnimationFinished())
+            if (_isCharging)
             {
-                PController.sprite.color = Color.white;
-                PController.StateMachine.ChangeState(PController.StateContainer.PlayerGroundState);
-            }
-            else if (_isCharging)
-            {
-                PController.attackCharge = Mathf.Min(CalculateTimeDifference(_attackChargeTime), 1.0f);
+                float chargeTime = CalculateTimeDifference(_attackChargeTime);
+                PController.attackCharge = Mathf.Min(chargeTime, 1.0f);
+                
+                // Inicia el sonido de carga solo si superamos el umbral
+                if (chargeTime > _chargeThreshold && !_isChargeSoundPlaying)
+                {
+                    PlaySwingSound(_chargeSound, chargeVolume, chargePitch, true);
+                    _isChargeSoundPlaying = true;
+                }
+
                 _attackDirection = PController.PlayerInputActions.Player.Move.ReadValue<Vector2>();
                 if (IsChargeAnimationFinished() && PController.attackCharge > 0)
                 {
@@ -72,6 +74,24 @@ namespace Player.States
                     {
                         _instancedParticle = Object.Instantiate(_chargeParticlePrefab, PController.transform);
                     }
+                }
+            }
+            else
+            {
+                if (_instancedParticle != null)
+                {
+                    Object.Destroy(_instancedParticle);
+                }
+                if (_isChargeSoundPlaying)
+                {
+                    _audioSource.Stop();
+                    _isChargeSoundPlaying = false;
+                }
+                
+                if (IsAttackAnimationFinished())
+                {
+                    PController.sprite.color = Color.white;
+                    PController.StateMachine.ChangeState(PController.StateContainer.PlayerGroundState);
                 }
             }
         }
@@ -84,7 +104,6 @@ namespace Player.States
 
         private bool IsChargeAnimationFinished()
         {
-            PlaySwingSound(_strongSwingSound, strongSwingVolume, strongSwingPitch);
             var animState = PController.anim.GetCurrentAnimatorStateInfo(0);
             return animState.IsName("GroundAttackCharge") && IsCurrentAnimationFinished();
         }
@@ -99,8 +118,13 @@ namespace Player.States
             if (!_isCharging)
                 return;
 
-            PController.anim.Play("GroundAttackDischarge");
+            if (_isChargeSoundPlaying)
+            {
+                _audioSource.Stop();
+                _isChargeSoundPlaying = false;
+            }
 
+            PController.anim.Play("GroundAttackDischarge");
 
             var animationLength = PController.GetAnimationLength();
             _hitbox = BatHitboxManager.CreateHitBox(
@@ -110,6 +134,17 @@ namespace Player.States
                 animationLength,
                 AttackType.GroundAttack
             );
+
+            // Reproduce el sonido de swing apropiado
+            if (PController.attackCharge > _chargeThreshold)
+            {
+                PlaySwingSound(_strongSwingSound, strongSwingVolume, strongSwingPitch);
+                
+            }
+            else
+            {
+                PlaySwingSound(_strongSwingSound, strongSwingVolume, strongSwingPitch);
+            }
 
             _attackChargeTime = 0.0f;
             _attackDirection = Vector2.zero;
@@ -124,6 +159,12 @@ namespace Player.States
             PController.attackCharge = 0;
             PController.PlayerInputActions.Player.Attack.performed -= OnGroundAttack;
             PController.PlayerInputActions.Player.Attack.canceled -= OnGroundAttackCanceled;
+
+            if (_isChargeSoundPlaying)
+            {
+                _audioSource.Stop();
+                _isChargeSoundPlaying = false;
+            }
         }
 
         private float CalculateTimeDifference(float a)
@@ -131,13 +172,14 @@ namespace Player.States
             return Time.time - a;
         }
 
-        public void PlaySwingSound(AudioClip clip, float volume, float pitch)
+        public void PlaySwingSound(AudioClip clip, float volume, float pitch, bool loop = false)
         {
             if (clip != null)
             {
                 _audioSource.clip = clip;
                 _audioSource.volume = volume;
                 _audioSource.pitch = pitch;
+                _audioSource.loop = loop;
                 _audioSource.Play();
             }
         }
